@@ -45,6 +45,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //tvshows table
         String CREATE_TVSHOWS_TABLE = "CREATE TABLE " + TABLE_TVSHOWS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_TVDB_ID + " INTEGER,"
                 + KEY_TITLE + " TEXT,"
                 + KEY_YEAR + " INTEGER"
                 + ")";
@@ -80,6 +81,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, tvshow.getTitle());
+        values.put(KEY_TVDB_ID, tvshow.getTVDBid());
         values.put(KEY_YEAR, tvshow.getYear());
 
         // inserting row
@@ -87,11 +89,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    public void addTVShow(String title, int year) {
+    public void addTVShow(int tvdbIt, String title, int year) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, title);
+        values.put(KEY_TVDB_ID, tvdbIt);
         values.put(KEY_YEAR, year);
 
         // inserting Row
@@ -130,7 +133,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return null;
 
         cursor.moveToFirst();
-        Log.d("LOG", cursor.toString());
         TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
                 cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
 
