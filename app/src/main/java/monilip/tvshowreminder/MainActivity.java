@@ -51,41 +51,16 @@ public class MainActivity extends Activity {
     //For testing
     private void test() {
         //All backend functionality should be tested here
+        //Test start
         Log.d("TEST","Test start");
 
         //databaseHandler
         DatabaseHandler db = new DatabaseHandler(this);
 
-        TVShow tvshow = this.addTestTVShow();
-        this.addTestEpisode(tvshow);
+        Tests.databaseTest(db);
 
-        Episode episode = db.getEpisode(tvshow.getId(),1,1);
-        Log.d("TEST",tvshow.toString());
-        Log.d("TEST",episode.toString());
 
+        //Test stop
         Log.d("TEST","Test stop");
     }
-
-    private TVShow addTestTVShow() {
-        //databaseHandler
-        DatabaseHandler db = new DatabaseHandler(this);
-
-        //TestTVShow
-        TVShow testTvshow = new TVShow(123, "Test",2014);
-
-        db.addTVShow(testTvshow);
-        return testTvshow;
-    }
-
-    private void addTestEpisode(TVShow tvshow) {
-        //databaseHandler
-        DatabaseHandler db = new DatabaseHandler(this);
-
-        //TestEpisode
-        Episode testEp = new Episode(tvshow.getId(),1,1,"Pilot","07-11-2014");
-
-        db.addEpisode(testEp);
-    }
-
-
 }
