@@ -2,6 +2,7 @@ package monilip.tvshowreminder;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -29,11 +30,24 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //for testing
+        if (id == R.id.action_test) {
+            this.test();
+            return true;
+        }
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //For testing
+    private void test() {
+        Log.d("TEST","Test");
+        //All backend functionality should be tested here
+
     }
 }
