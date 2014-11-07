@@ -6,6 +6,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import monilip.tvshowreminder.database.DatabaseHandler;
+import monilip.tvshowreminder.database.Episode;
+import monilip.tvshowreminder.database.TVShow;
+
 
 public class MainActivity extends Activity {
 
@@ -46,8 +50,42 @@ public class MainActivity extends Activity {
 
     //For testing
     private void test() {
-        Log.d("TEST","Test");
         //All backend functionality should be tested here
+        Log.d("TEST","Test start");
 
+        //databaseHandler
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        TVShow tvshow = this.addTestTVShow();
+        this.addTestEpisode(tvshow);
+
+        Episode episode = db.getEpisode(tvshow.getId(),1,1);
+        Log.d("TEST",tvshow.toString());
+        Log.d("TEST",episode.toString());
+
+        Log.d("TEST","Test stop");
     }
+
+    private TVShow addTestTVShow() {
+        //databaseHandler
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        //TestTVShow
+        TVShow testTvshow = new TVShow(123, "Test",2014);
+
+        db.addTVShow(testTvshow);
+        return testTvshow;
+    }
+
+    private void addTestEpisode(TVShow tvshow) {
+        //databaseHandler
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        //TestEpisode
+        Episode testEp = new Episode(tvshow.getId(),1,1,"Pilot","07-11-2014");
+
+        db.addEpisode(testEp);
+    }
+
+
 }

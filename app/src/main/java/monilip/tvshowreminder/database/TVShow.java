@@ -24,7 +24,8 @@ public class TVShow {
     }
 
     // constructor
-    public TVShow(String title, Integer year) {
+    public TVShow( int TVDBid, String title, Integer year) {
+        this.TVDBid = TVDBid;
         this.title = title;
         this.year = year;
     }

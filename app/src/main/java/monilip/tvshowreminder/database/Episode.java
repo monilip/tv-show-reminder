@@ -27,6 +27,15 @@ public class Episode {
         this.date = date;
     }
 
+    // constructor
+    public Episode(int TVShowId, int seasonNumber, int episodeNumber, String title, String date) {
+        this.TVShowId = TVShowId;
+        this.seasonNumber = seasonNumber;
+        this.episodeNumber = episodeNumber;
+        this.title = title;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }
