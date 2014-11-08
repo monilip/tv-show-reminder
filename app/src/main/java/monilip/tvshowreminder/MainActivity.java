@@ -54,11 +54,15 @@ public class MainActivity extends Activity {
         //Test start
         Log.d("TEST","Test start");
 
+
         //databaseHandler
         DatabaseHandler db = new DatabaseHandler(this);
 
-        Tests.databaseTest(db);
+        //Database test
+       // Tests.databaseTest(db);
 
+        //Network test
+        Tests.networkTest(getApplicationContext());
 
         //Test stop
         Log.d("TEST","Test stop");
