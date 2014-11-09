@@ -8,11 +8,14 @@ import org.w3c.dom.Document;
 
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import monilip.tvshowreminder.database.DatabaseHandler;
+import monilip.tvshowreminder.database.Episode;
+import monilip.tvshowreminder.database.TVShow;
 import monilip.tvshowreminder.network.TVDB.*;
 
 /**
@@ -55,12 +58,14 @@ public class NetworkManager {
                     Document doc = builder.parse(conn.getInputStream());
 
                     TVShowParser tvshowParser = new TVShowParser(doc);
-                    //add tv show to database if there is not
+                    //add tvshow to database if there is not
                     if (!db.isTVShow(tvshowParser.getTVDBid())) {
+                        //add tvshow to database
                         db.addTVShow(tvshowParser.getTVShow());
                     }
-                    //TODO
-                    //add episodes of this show
+                    //add episodes from tvshow
+                    db.addEpisodesToTVShow(tvshowParser.getEpisodesDataList(), db.getTVShowByTVDBId(tvshowParser.getTVDBid()).getId());
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

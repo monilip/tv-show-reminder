@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by monilip on 2014-11-07.
  */
@@ -57,7 +60,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_SEASON_NUMBER + " INTEGER,"
                 + KEY_EPISODE_NUMBER + " INTEGER,"
                 + KEY_TITLE + " TEXT,"
-                + KEY_DATE + " TEXT"
+                + KEY_DATE + " TEXT,"
+                + "FOREIGN KEY (" + KEY_TVSHOW_ID + ") REFERENCES " + TABLE_TVSHOWS + "(" + KEY_ID + ")"
                 + ")";
         db.execSQL(CREATE_EPISODES_TABLE);
     }
@@ -209,10 +213,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor == null){
+        if (cursor == null || !cursor.moveToFirst()){
             return null;
         }
-        cursor.moveToFirst();
 
         Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
                 cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
@@ -221,19 +224,58 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return episode;
     }
 
+    public boolean isEpisode(Episode episode) {
+        if (this.getEpisode(episode.getTVShowId(),episode.getSeasonNumber(),episode.getEpisodeNumber()) == null){
+            return false;
+        }
+        return true;
+    }
+
+    public List<Episode> getAllEpisodeFromTVShow(int tvshowId) {
+        List<Episode> episodes = new ArrayList<Episode>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_EPISODES + " WHERE "
+                + KEY_TVSHOW_ID + " = " + tvshowId;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
+                        cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+
+                episodes.add(episode);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return episodes;
+    }
+
+    public void addEpisodesToTVShow(List<String[]> episodesDataList, int tvshowId) {
+        Integer episodesCount =  episodesDataList.size();
+        for (int i = 0; i < episodesCount; i++) {
+            String[] epData = episodesDataList.get(i);
+            Episode episode = new Episode(tvshowId,Integer.parseInt(epData[0]),Integer.parseInt(epData[1]),epData[2],epData[3]);
+            if (!this.isEpisode(episode)) {
+                this.addEpisode(episode);
+            }
+        }
+    }
 
     //TODO
 
     //TV-SHOWS
-    //public List<TVShow> getTVShowByTitle(String title) {} //maybe moret than one result
-    //public List<TVShow> getTVShowByYear(String year) {}  //maybe moret than one result
+    //public List<TVShow> getTVShowByTitle(String title) {} //may be more than one result
+    //public List<TVShow> getTVShowByYear(String year) {}  //may be more than one result
     //public List<TVShow> getAllTVShows() {}
     //public int getTVShowsCount(){}
     //public int updateTVShow(TVShow tvshow) {}
     //public void deleteTVShow(TVShow tvshow) {)
 
     //EPISODES
-    //public List<Episodes> getAllEpisodeFromTVShow(int tvshowId) {}
     //public int getEpisodesFromTVShowCount(int tvshowId){}
     //public int getSeasonsFromTVShowCount(int tvshowId){}
     //public int updateEpisode(Episode episode) {}
