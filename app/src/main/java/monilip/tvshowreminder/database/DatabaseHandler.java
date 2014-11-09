@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Created by monilip on 2014-11-07.
@@ -110,14 +109,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor == null){
+        if (cursor == null || !cursor.moveToFirst()){
             return null;
         }
-        cursor.moveToFirst();
 
         TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
                 cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
 
+        return tvshow;
+    }
+
+    public TVShow getTVShowByTVDBId(int TVDBid) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_TVSHOWS + " WHERE "
+                + KEY_TVDB_ID + " = " + TVDBid;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor == null || !cursor.moveToFirst()){
+            return null;
+        }
+
+        TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
+                cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
+
+        cursor.close();
         return tvshow;
     }
 
@@ -136,7 +153,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
                 cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
 
+        cursor.close();
         return tvshow;
+    }
+
+    public boolean isTVShow(int TVDBid) {
+        if (this.getTVShowByTVDBId(TVDBid) == null){
+            return false;
+        }
+        return true;
     }
 
     //EPISODES
@@ -163,14 +188,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor == null){
+        if (cursor == null || !cursor.moveToFirst()){
             return null;
         }
-        cursor.moveToFirst();
 
         Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
                 cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
 
+        cursor.close();
         return episode;
     }
 
@@ -192,8 +217,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
                 cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
 
+        cursor.close();
         return episode;
     }
+
 
     //TODO
 
