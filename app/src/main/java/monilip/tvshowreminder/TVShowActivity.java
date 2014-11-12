@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,40 +12,33 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import monilip.tvshowreminder.database.DatabaseHandler;
+import monilip.tvshowreminder.database.Episode;
+import monilip.tvshowreminder.database.TVShow;
+
 
 public class TVShowActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_tvshow);
 
         // storing string resources into Array
-        String[] episodes = {"Ep1", "Ep2","Ep3"};
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+
+        TVShow tvshow = db.getTVShowById(1); // "Gotham" (2014)
+        List<Episode> episodes = db.getAllEpisodeFromTVShow(tvshow.getId());
+        List<String> episodesList = new ArrayList<String>();
+        for(int i=0;i < episodes.size();i++){
+            episodesList.add("Episode " + episodes.get(i).getEpisodeNumber() + ": '" + episodes.get(i).getTitle() + "', date: " + episodes.get(i).getDate());
+        }
 
         // Binding resources Array to ListAdapter
-        this.setListAdapter(new ArrayAdapter<String>(this, R.layout.episodes_item, R.id.label, episodes));
-
-
-       /* TextView txtName = (TextView) findViewById(R.id.txtName);
-        Button btnClose = (Button) findViewById(R.id.btnClose);
-
-        Intent i = getIntent();
-        // Receiving the Data
-        String name = i.getStringExtra("name");
-
-        // Displaying Received data
-        txtName.setText(name);
-
-        // Binding Click event to Button
-        btnClose.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View arg0) {
-                //Closing TVShowScreen Activity
-                finish();
-            }
-        });*/
-     }
+        this.setListAdapter(new ArrayAdapter<String>(this, R.layout.episodes_item, R.id.label, episodesList));
+    }
 
 
     @Override

@@ -5,6 +5,6 @@
     <Button android:id="@+id/btnTVShowScreen"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Go to see TVShow episodes"
+        android:text="Go to see Gotham episodes"
         android:layout_marginTop="15dip"/>
 </LinearLayout>
