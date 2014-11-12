@@ -1,10 +1,13 @@
 package monilip.tvshowreminder;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import monilip.tvshowreminder.database.DatabaseHandler;
 import monilip.tvshowreminder.database.Episode;
@@ -17,6 +20,22 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button btnTVShowScreen = (Button) findViewById(R.id.btnTVShowScreen);
+        //Listening to button event
+        btnTVShowScreen.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                //Starting a new Intent
+                Intent tvshowScreen = new Intent(getApplicationContext(), TVShowActivity.class);
+
+                //Sending data to another Activity
+                tvshowScreen.putExtra("name", "Gotham");
+
+                startActivity(tvshowScreen);
+
+            }
+        });
     }
 
 
