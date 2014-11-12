@@ -2,6 +2,11 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+    <Button android:id="@+id/btnGetTVShow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Gotham episodes"
+        android:layout_marginTop="15dip"/>
     <Button android:id="@+id/btnTVShowScreen"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

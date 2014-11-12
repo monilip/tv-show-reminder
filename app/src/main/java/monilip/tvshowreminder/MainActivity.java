@@ -12,6 +12,8 @@ import android.widget.Button;
 import monilip.tvshowreminder.database.DatabaseHandler;
 import monilip.tvshowreminder.database.Episode;
 import monilip.tvshowreminder.database.TVShow;
+import monilip.tvshowreminder.network.ConnectionDetector;
+import monilip.tvshowreminder.network.NetworkManager;
 
 
 public class MainActivity extends Activity {
@@ -20,6 +22,21 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button btnGetTVShow = (Button) findViewById(R.id.btnGetTVShow);
+        //Listening to button event
+        btnGetTVShow.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                ConnectionDetector connectionDetector = new ConnectionDetector(getApplicationContext());
+                if (connectionDetector.isConnected()){
+                    NetworkManager netManager = new NetworkManager(getApplicationContext());
+                    int[] TVDBids = {274431}; //"Gotham" (2014)
+                    netManager.getTVShowData(TVDBids);
+                }
+
+            }
+        });
 
         Button btnTVShowScreen = (Button) findViewById(R.id.btnTVShowScreen);
         //Listening to button event
@@ -30,7 +47,7 @@ public class MainActivity extends Activity {
                 Intent tvshowScreen = new Intent(getApplicationContext(), TVShowActivity.class);
 
                 //Sending data to another Activity
-                tvshowScreen.putExtra("name", "Gotham");
+                tvshowScreen.putExtra("tvshowId", 1);  // "Gotham" (2014)
 
                 startActivity(tvshowScreen);
 

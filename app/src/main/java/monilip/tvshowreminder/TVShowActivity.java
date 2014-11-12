@@ -29,7 +29,14 @@ public class TVShowActivity extends ListActivity {
         // storing string resources into Array
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
-        TVShow tvshow = db.getTVShowById(1); // "Gotham" (2014)
+        Intent intent = getIntent();
+        // Receiving the Data
+        int tvshowId = intent.getIntExtra("tvshowId",0);
+        if (db.getTVShowById(tvshowId) == null){
+            finish();
+        }
+        TVShow tvshow = db.getTVShowById(tvshowId);
+
         List<Episode> episodes = db.getAllEpisodeFromTVShow(tvshow.getId());
         List<String> episodesList = new ArrayList<String>();
         for(int i=0;i < episodes.size();i++){
