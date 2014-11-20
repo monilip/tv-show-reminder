@@ -24,6 +24,10 @@
             android:name="monilip.tvshowreminder.TVShowActivity"
             android:label="@string/title_activity_tvshow" >
         </activity>
+        <activity
+            android:name=".FindTVShowActivity"
+            android:label="@string/title_activity_search_tvshow" >
+        </activity>
     </application>
 
 </manifest>

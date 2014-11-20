@@ -17,11 +17,11 @@ import monilip.tvshowreminder.database.TVShow;
  *
  * Parsing XML: http://thetvdb.com/api/GetSeries.php?seriesname={tvshow_name}
  */
-public class TVShowsParser {
+public class FindTVShowParser {
     private Document content;
     private NodeList seriesNodes;
 
-    public TVShowsParser(Document content) {
+    public FindTVShowParser(Document content) {
         this.content = content;
         this.seriesNodes = content.getElementsByTagName("Series");
 
@@ -62,7 +62,7 @@ public class TVShowsParser {
         if (firstAired.item(0) != null) {
             String date = firstAired.item(0).getTextContent();
             //date is in format YYYY-MM-DD and we need only YYYY
-            return Integer.parseInt(date.substring(0, 3));
+            return Integer.parseInt(date.substring(0, 4));
         }
         else{
             return 0;

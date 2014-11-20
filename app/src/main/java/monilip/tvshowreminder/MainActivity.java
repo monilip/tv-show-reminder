@@ -10,23 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import org.w3c.dom.Document;
-
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import monilip.tvshowreminder.database.DatabaseHandler;
-import monilip.tvshowreminder.database.Episode;
-import monilip.tvshowreminder.database.TVShow;
 import monilip.tvshowreminder.network.ConnectionDetector;
 import monilip.tvshowreminder.network.NetworkManager;
-import monilip.tvshowreminder.network.TVDB.TVShowsParser;
-
 
 public class MainActivity extends Activity {
 
@@ -62,6 +48,26 @@ public class MainActivity extends Activity {
                 tvshowScreen.putExtra("tvshowId", 1);  // "Gotham" (2014)
 
                 startActivity(tvshowScreen);
+
+            }
+        });
+
+        Button btnFindTVShow = (Button) findViewById(R.id.btnFindTVShow);
+        //Listening to button event
+        btnFindTVShow.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                ConnectionDetector connectionDetector = new ConnectionDetector(getApplicationContext());
+                if (connectionDetector.isConnected()){
+
+                    //Starting a new Intent
+                    Intent findTVShowResults = new Intent(getApplicationContext(), FindTVShowActivity.class);
+
+                    //Getting TVShow name to find
+                   // EditText tvshowName = (EditText) findViewById(R.id.tvshowName);
+                    //Sending data to FindTVSHowResultsActivity
+                    startActivity(findTVShowResults);
+                }
 
             }
         });
@@ -110,71 +116,10 @@ public class MainActivity extends Activity {
        // Tests.databaseTest(db);
 
         //Network test
-       // Tests.networkTest(getApplicationContext());
-        this.searchTVShow("Supernatural");
+        Tests.networkTest(getApplicationContext());
 
         //Test stop
         Log.d("TEST","Test stop");
     }
 
-
-
-    private void searchTVShow(String TVShowName){
-
-        Log.d("TEST","networkTest");
-
-        ConnectionDetector connectionDetector = new ConnectionDetector(getApplicationContext());
-        if (connectionDetector.isConnected()){
-            Log.d("TEST","App is connected to the Internet");
-
-            Log.d("TEST","Searching tvshow in TVDB...");
-
-            String[] urls = new String[1];
-            urls[0] = "http://thetvdb.com/api/GetSeries.php?seriesname=" + TVShowName;
-
-            LoadTVShowsASYNC task = new LoadTVShowsASYNC();
-            task.execute(urls);
-        } else {
-            Log.d("TEST","App is not connected to the Internet");
-        }
-
-
-    }
-
-    //loads tv shows from xml from urls
-    private class LoadTVShowsASYNC extends AsyncTask<String, Void, String> {
-        List<TVShow> tvshows = new ArrayList<TVShow>();
-
-        @Override
-        protected String doInBackground(String... urls) {
-
-            for(String urlString: urls){
-                URL url = null;
-                try {
-                    url = new URL(urlString);
-                    URLConnection conn = url.openConnection();
-
-                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder builder = factory.newDocumentBuilder();
-                    Document doc = builder.parse(conn.getInputStream());
-
-                    TVShowsParser tvshowsParser = new TVShowsParser(doc);
-                    for(int i = 0;i< tvshowsParser.getTVShowsNumber();i++){
-                        tvshows.add(tvshowsParser.getTVShowData(i));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Log.d("TEST","Get "+tvshows.size()+ " tvshows");
-            //TODO
-            //updateUI
-        }
-
-    }
 }

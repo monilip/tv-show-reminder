@@ -50,7 +50,7 @@ public class TVShowParser {
         NodeList id = seriesInfo.getElementsByTagName("FirstAired");
         String date = id.item(0).getTextContent();
         //date is in format YYYY-MM-DD and we need only YYYY
-        return Integer.parseInt(date.substring(0,3));
+        return Integer.parseInt(date.substring(0,4));
     }
 
     public TVShow getTVShow(){

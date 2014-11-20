@@ -14,10 +14,13 @@
         android:text="Go to see Gotham episodes"
         android:layout_marginTop="15dip"/>
 
-    <TextView
-        android:layout_width="397dp"
+
+    <Button android:id="@+id/btnFindTVShow"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Test data"
-        android:id="@+id/testView"
-        android:layout_weight="0.16" />
+        android:text="Find TV-show"
+        android:layout_marginTop="15dip"/>
+
+
+
 </LinearLayout>
