@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:weightSum="1">
     <Button android:id="@+id/btnGetTVShow"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -12,4 +13,11 @@
         android:layout_height="wrap_content"
         android:text="Go to see Gotham episodes"
         android:layout_marginTop="15dip"/>
+
+    <TextView
+        android:layout_width="397dp"
+        android:layout_height="wrap_content"
+        android:text="Test data"
+        android:id="@+id/testView"
+        android:layout_weight="0.16" />
 </LinearLayout>

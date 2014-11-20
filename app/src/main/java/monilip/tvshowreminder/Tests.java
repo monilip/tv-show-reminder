@@ -77,4 +77,5 @@ public class Tests {
             Log.d("TEST","App is not connected to the Internet");
         }
     }
+
 }

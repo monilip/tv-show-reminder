@@ -3,6 +3,7 @@ package monilip.tvshowreminder.network;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.TextView;
 
 import org.w3c.dom.Document;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import monilip.tvshowreminder.R;
 import monilip.tvshowreminder.database.DatabaseHandler;
 import monilip.tvshowreminder.database.Episode;
 import monilip.tvshowreminder.database.TVShow;
@@ -35,12 +37,13 @@ public class NetworkManager {
             String urlString = new String("http://thetvdb.com/data/series/" + TVDBids[i] + "/all/");
             urls[i] = urlString;
         }
-        LoadTVShowsDataASYNC task = new LoadTVShowsDataASYNC();
+        LoadTVShowDataASYNC task = new LoadTVShowDataASYNC();
         task.execute(urls);
     }
 
+
     //loads tv shows data from xml from urls to database
-    private class LoadTVShowsDataASYNC extends AsyncTask<String, Void, String> {
+    private class LoadTVShowDataASYNC extends AsyncTask<String, Void, String> {
 
         DatabaseHandler db = new DatabaseHandler(context);
 
@@ -79,4 +82,7 @@ public class NetworkManager {
             //refresh UI
         }
     }
+
+
+
 }
