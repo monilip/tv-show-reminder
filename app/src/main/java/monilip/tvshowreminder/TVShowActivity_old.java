@@ -1,16 +1,11 @@
 package monilip.tvshowreminder;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +15,7 @@ import monilip.tvshowreminder.database.Episode;
 import monilip.tvshowreminder.database.TVShow;
 
 
-public class TVShowActivity extends ListActivity {
+public class TVShowActivity_old extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

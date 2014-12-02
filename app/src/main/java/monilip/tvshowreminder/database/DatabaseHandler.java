@@ -168,6 +168,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
+
+    public List<TVShow> getAllTVShows() {
+        List<TVShow> tvshows = new ArrayList<TVShow>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_TVSHOWS;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+                        cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
+                        cursor.getString(cursor.getColumnIndex(KEY_TITLE)),
+                        cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)));
+
+                tvshows.add(tvshow);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return tvshows;
+    }
     //EPISODES
     public void addEpisode(Episode episode) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -270,7 +294,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //TV-SHOWS
     //public List<TVShow> getTVShowByTitle(String title) {} //may be more than one result
     //public List<TVShow> getTVShowByYear(String year) {}  //may be more than one result
-    //public List<TVShow> getAllTVShows() {}
     //public int getTVShowsCount(){}
     //public int updateTVShow(TVShow tvshow) {}
     //public void deleteTVShow(TVShow tvshow) {)

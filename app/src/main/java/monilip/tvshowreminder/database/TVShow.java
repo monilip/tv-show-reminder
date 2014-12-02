@@ -3,7 +3,7 @@ package monilip.tvshowreminder.database;
 /**
  * Created by monilip on 2014-11-07.
  */
-public class TVShow {
+public class TVShow{
 
     //private variables
     int id;
@@ -28,6 +28,12 @@ public class TVShow {
         this.TVDBid = TVDBid;
         this.title = title;
         this.year = year;
+    }
+
+    @Override
+    // toString
+    public String toString() {
+        return this.title+"("+this.year+")";
     }
 
     public int getId() {
@@ -61,4 +67,6 @@ public class TVShow {
     public void setTVDBid(int TVDBid) {
         this.TVDBid = TVDBid;
     }
+
+
 }

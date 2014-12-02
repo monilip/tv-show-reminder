@@ -1,0 +1,40 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="monilip.tvshowreminder.AddTVShowFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:id="@+id/linearLayout"
+            android:layout_weight="0.04">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvshowName"
+                android:layout_weight="0.92" />
+
+            <Button android:id="@+id/searchTVShowButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Find TVShow"
+                android:layout_marginTop="15dip" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragment_addtvshow_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+</FrameLayout>

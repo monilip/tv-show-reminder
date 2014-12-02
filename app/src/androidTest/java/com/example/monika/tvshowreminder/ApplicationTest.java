@@ -1,4 +1,4 @@
-package monilip.tvshowreminder;
+package com.example.monika.tvshowreminder;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

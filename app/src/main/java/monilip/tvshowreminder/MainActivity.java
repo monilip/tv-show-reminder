@@ -1,125 +1,85 @@
+
 package monilip.tvshowreminder;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.AsyncTask;
+
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 
-import monilip.tvshowreminder.database.DatabaseHandler;
-import monilip.tvshowreminder.network.ConnectionDetector;
-import monilip.tvshowreminder.network.NetworkManager;
+import monilip.tvshowreminder.adapter.TabsPagerAdapter;
 
-public class MainActivity extends Activity {
+/**
+ * Created by monilip on 2014-11-26.
+ */
+public class MainActivity extends FragmentActivity  implements ActionBar.TabListener {
+
+    private ViewPager viewPager;
+    private TabsPagerAdapter mAdapter;
+    private ActionBar actionBar;
+    // Tab titles
+    private String[] tabs = { "Dashboard", "TVShows", "Add TVShow"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnGetTVShow = (Button) findViewById(R.id.btnGetTVShow);
-        //Listening to button event
-        btnGetTVShow.setOnClickListener(new View.OnClickListener() {
+        // Initilization
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        actionBar = getActionBar();
+        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
-            public void onClick(View arg0) {
-                ConnectionDetector connectionDetector = new ConnectionDetector(getApplicationContext());
-                if (connectionDetector.isConnected()){
-                    NetworkManager netManager = new NetworkManager(getApplicationContext());
-                    int[] TVDBids = {274431}; //"Gotham" (2014)
-                    netManager.getTVShowData(TVDBids);
-                }
+        viewPager.setAdapter(mAdapter);
+        actionBar.setHomeButtonEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-            }
-        });
+        // Adding Tabs
+        for (String tab_name : tabs) {
+            actionBar.addTab(actionBar.newTab().setText(tab_name)
+                    .setTabListener(this));
+        }
+        /**
+         * on swiping the viewpager make respective tab selected
+         * */
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-        Button btnTVShowScreen = (Button) findViewById(R.id.btnTVShowScreen);
-        //Listening to button event
-        btnTVShowScreen.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View arg0) {
-                //Starting a new Intent
-                Intent tvshowScreen = new Intent(getApplicationContext(), TVShowActivity.class);
-
-                //Sending data to another Activity
-                tvshowScreen.putExtra("tvshowId", 1);  // "Gotham" (2014)
-
-                startActivity(tvshowScreen);
+            @Override
+            public void onPageSelected(int position) {
+                // on changing the page
+                // make respected tab selected
+                actionBar.setSelectedNavigationItem(position);
 
             }
-        });
 
-        Button btnFindTVShow = (Button) findViewById(R.id.btnFindTVShow);
-        //Listening to button event
-        btnFindTVShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
 
-            public void onClick(View arg0) {
-                ConnectionDetector connectionDetector = new ConnectionDetector(getApplicationContext());
-                if (connectionDetector.isConnected()){
-
-                    //Starting a new Intent
-                    Intent findTVShowResults = new Intent(getApplicationContext(), FindTVShowActivity.class);
-
-                    //Getting TVShow name to find
-                   // EditText tvshowName = (EditText) findViewById(R.id.tvshowName);
-                    //Sending data to FindTVSHowResultsActivity
-                    startActivity(findTVShowResults);
-                }
-
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
             }
         });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //for testing
-        if (id == R.id.action_test) {
-            this.test();
-            return true;
-        }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        // on tab selected
+        // show respected fragment view
+        viewPager.setCurrentItem(tab.getPosition());
+        //TODO
+        //if tvshowsFragment checked for update
     }
 
-    //For testing
-    private void test() {
-        //All backend functionality should be tested here
-        //Test start
-        Log.d("TEST","Test start");
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
-
-        //databaseHandler
-        DatabaseHandler db = new DatabaseHandler(this);
-
-        //Database test
-       // Tests.databaseTest(db);
-
-        //Network test
-        Tests.networkTest(getApplicationContext());
-
-        //Test stop
-        Log.d("TEST","Test stop");
     }
 
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
 }

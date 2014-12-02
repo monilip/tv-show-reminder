@@ -3,22 +3,17 @@ package monilip.tvshowreminder.network;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.TextView;
 
 import org.w3c.dom.Document;
 
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import monilip.tvshowreminder.R;
 import monilip.tvshowreminder.database.DatabaseHandler;
-import monilip.tvshowreminder.database.Episode;
-import monilip.tvshowreminder.database.TVShow;
-import monilip.tvshowreminder.network.TVDB.*;
+import monilip.tvshowreminder.network.TVDB.TVShowParser;
 
 /**
  * Created by monilip on 2014-11-09.
@@ -76,11 +71,6 @@ public class NetworkManager {
             return null;
         }
 
-        @Override
-        protected void onPostExecute(String result) {
-            //TODO
-            //refresh UI
-        }
     }
 
 

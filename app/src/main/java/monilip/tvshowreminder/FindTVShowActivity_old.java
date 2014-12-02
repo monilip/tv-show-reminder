@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import org.w3c.dom.Document;
 
@@ -25,13 +21,13 @@ import monilip.tvshowreminder.database.TVShow;
 import monilip.tvshowreminder.network.TVDB.FindTVShowParser;
 
 
-public class FindTVShowActivity extends Activity {
+public class FindTVShowActivity_old extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("TEST","FindTVShowActivity");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_tvshow);
+      /*  setContentView(R.layout.activity_search_tvshow);
 
         Button btnFindTVShow = (Button) findViewById(R.id.btnFindTVShow);
         //Listening to button event
@@ -52,6 +48,7 @@ public class FindTVShowActivity extends Activity {
                 task.execute(urls);
 }
         });
+        */
     }
 
 
@@ -108,11 +105,11 @@ public class FindTVShowActivity extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
-            TextView resultsTextView = (TextView) findViewById(R.id.TempResults);
+            /*TextView resultsTextView = (TextView) findViewById(R.id.TempResults);
             resultsTextView.setText("Got " + tvshows.size() + " tvshows");
             for(TVShow tvshow : tvshows){
                 resultsTextView.append(tvshow.getTitle()+"("+tvshow.getYear()+")");
-            }
+            }*/
             //TODO
             //make a fancy UI for results
         }
