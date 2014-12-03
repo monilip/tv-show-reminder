@@ -14,9 +14,16 @@ import monilip.tvshowreminder.TVShowsFragment;
  * Created by monilip on 2014-11-26.
  */
 public class TabsPagerAdapter extends FragmentPagerAdapter {
+    private DashboardFragment dashboard;
+    private TVShowsFragment tvshows;
+    private AddTVShowFragment addtvshow;
+
 
     public TabsPagerAdapter(FragmentManager fm) {
         super(fm);
+        dashboard = new DashboardFragment();
+        tvshows = new TVShowsFragment();
+        addtvshow = new AddTVShowFragment();
     }
 
     @Override
@@ -24,15 +31,14 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 
         switch (index) {
             case 0:
-                // Dashboard fragment activity
-                return new DashboardFragment();
+                // Dashboard fragment
+                return dashboard;
             case 1:
-                // TVshows fragment activity
-                return new TVShowsFragment();
+                // TVshows fragment
+                return tvshows;
             case 2:
-                // Add tvshow fragment activity
-                return  new AddTVShowFragment();
-
+                // Add tvshow fragment
+                return addtvshow;
         }
 
         return null;
@@ -44,4 +50,15 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
         return 3;
     }
 
+    public DashboardFragment getDashboard() {
+        return dashboard;
+    }
+
+    public TVShowsFragment getTvshows() {
+        return tvshows;
+    }
+
+    public AddTVShowFragment getAddtvshow() {
+        return addtvshow;
+    }
 }

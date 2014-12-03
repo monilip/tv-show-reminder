@@ -42,6 +42,9 @@ public class TVShowsFragment extends ListFragment {
     }
 
 
-
-
+    public void reload() {
+        List<String> tvshowsList = this.getStringListData();
+        adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.episodes_item,tvshowsList);
+        setListAdapter(adapter);
+    }
 }
