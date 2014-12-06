@@ -1,16 +1,11 @@
-package monilip.tvshowreminder.network.TVDB;
-
-import android.util.Log;
+package monilip.tvshowreminder.model.network.TVDB;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import monilip.tvshowreminder.database.TVShow;
+import monilip.tvshowreminder.model.database.TVShow;
 
 /**
  * Created by monilip on 2014-1120.

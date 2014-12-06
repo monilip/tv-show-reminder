@@ -1,4 +1,4 @@
-package monilip.tvshowreminder;
+package monilip.tvshowreminder.controller.addTVShow;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -10,9 +10,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import monilip.tvshowreminder.database.DatabaseHandler;
-import monilip.tvshowreminder.database.TVShow;
-import monilip.tvshowreminder.network.NetworkManager;
+import monilip.tvshowreminder.R;
+import monilip.tvshowreminder.model.database.DatabaseHandler;
+import monilip.tvshowreminder.model.database.TVShow;
+import monilip.tvshowreminder.model.network.NetworkManager;
 
 /**
  * Created by monilip on 2014-11-26.
@@ -33,7 +34,7 @@ public class AddTVShowResultsFragment extends ListFragment {
             }
         }
         Log.d("TEST", "tvshows.size: " + tvshows.size());
-        ArrayAdapter<TVShow> adapter = new ArrayAdapter<TVShow>(getActivity().getApplicationContext(),R.layout.episodes_item,tvshows);
+        ArrayAdapter<TVShow> adapter = new ArrayAdapter<TVShow>(getActivity().getApplicationContext(), R.layout.episodes_item,tvshows);
 
         setListAdapter(adapter);
     }

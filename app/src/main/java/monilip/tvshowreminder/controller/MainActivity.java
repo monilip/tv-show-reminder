@@ -1,5 +1,5 @@
 
-package monilip.tvshowreminder;
+package monilip.tvshowreminder.controller;
 
 
 import android.app.ActionBar;
@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
-import monilip.tvshowreminder.adapter.TabsPagerAdapter;
+import monilip.tvshowreminder.R;
+import monilip.tvshowreminder.model.adapter.TabsPagerAdapter;
 
 /**
  * Created by monilip on 2014-11-26.

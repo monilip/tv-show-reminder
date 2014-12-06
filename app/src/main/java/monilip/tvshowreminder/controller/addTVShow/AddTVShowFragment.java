@@ -1,4 +1,4 @@
-package monilip.tvshowreminder;
+package monilip.tvshowreminder.controller.addTVShow;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,9 +23,10 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import monilip.tvshowreminder.database.TVShow;
-import monilip.tvshowreminder.network.ConnectionDetector;
-import monilip.tvshowreminder.network.TVDB.FindTVShowParser;
+import monilip.tvshowreminder.R;
+import monilip.tvshowreminder.model.database.TVShow;
+import monilip.tvshowreminder.model.network.ConnectionDetector;
+import monilip.tvshowreminder.model.network.TVDB.FindTVShowParser;
 
 /**
  * Created by monilip on 2014-11-26.

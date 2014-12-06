@@ -1,10 +1,12 @@
-package monilip.tvshowreminder;
+package monilip.tvshowreminder.controller.dashboard;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import monilip.tvshowreminder.R;
 
 /**
  * Created by monilip on 2014-11-26.

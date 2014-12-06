@@ -1,4 +1,4 @@
-package monilip.tvshowreminder.database;
+package monilip.tvshowreminder.model.database;
 
 import android.content.ContentValues;
 import android.content.Context;

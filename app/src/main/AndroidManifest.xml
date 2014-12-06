@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="monilip.tvshowreminder.MainActivity"
+            android:name=".controller.MainActivity"
             android:label="TVShow Reminder" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

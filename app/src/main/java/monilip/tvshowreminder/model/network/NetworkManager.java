@@ -1,4 +1,4 @@
-package monilip.tvshowreminder.network;
+package monilip.tvshowreminder.model.network;
 
 
 import android.content.Context;
@@ -12,8 +12,8 @@ import java.net.URLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import monilip.tvshowreminder.database.DatabaseHandler;
-import monilip.tvshowreminder.network.TVDB.TVShowParser;
+import monilip.tvshowreminder.model.database.DatabaseHandler;
+import monilip.tvshowreminder.model.network.TVDB.TVShowParser;
 
 /**
  * Created by monilip on 2014-11-09.

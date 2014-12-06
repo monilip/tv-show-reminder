@@ -1,4 +1,4 @@
-package monilip.tvshowreminder.network;
+package monilip.tvshowreminder.model.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

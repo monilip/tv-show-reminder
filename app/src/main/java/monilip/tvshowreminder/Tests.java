@@ -5,11 +5,11 @@ import android.util.Log;
 
 import java.util.List;
 
-import monilip.tvshowreminder.database.DatabaseHandler;
-import monilip.tvshowreminder.database.Episode;
-import monilip.tvshowreminder.database.TVShow;
-import monilip.tvshowreminder.network.ConnectionDetector;
-import monilip.tvshowreminder.network.NetworkManager;
+import monilip.tvshowreminder.model.database.DatabaseHandler;
+import monilip.tvshowreminder.model.database.Episode;
+import monilip.tvshowreminder.model.database.TVShow;
+import monilip.tvshowreminder.model.network.ConnectionDetector;
+import monilip.tvshowreminder.model.network.NetworkManager;
 
 /**
  * Created by monilip on 2014-11-07.

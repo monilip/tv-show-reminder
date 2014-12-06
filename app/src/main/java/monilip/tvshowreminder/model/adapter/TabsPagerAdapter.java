@@ -1,12 +1,12 @@
-package monilip.tvshowreminder.adapter;
+package monilip.tvshowreminder.model.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import monilip.tvshowreminder.AddTVShowFragment;
-import monilip.tvshowreminder.DashboardFragment;
-import monilip.tvshowreminder.TVShowsFragment;
+import monilip.tvshowreminder.controller.addTVShow.AddTVShowFragment;
+import monilip.tvshowreminder.controller.dashboard.DashboardFragment;
+import monilip.tvshowreminder.controller.tvshows.TVShowsFragment;
 
 
 

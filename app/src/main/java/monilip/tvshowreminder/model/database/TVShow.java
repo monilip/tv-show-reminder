@@ -1,4 +1,4 @@
-package monilip.tvshowreminder.database;
+package monilip.tvshowreminder.model.database;
 
 /**
  * Created by monilip on 2014-11-07.

@@ -1,4 +1,4 @@
-package monilip.tvshowreminder.network.TVDB;
+package monilip.tvshowreminder.model.network.TVDB;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -8,8 +8,7 @@ import org.w3c.dom.NodeList;
 import java.util.ArrayList;
 import java.util.List;
 
-import monilip.tvshowreminder.database.Episode;
-import monilip.tvshowreminder.database.TVShow;
+import monilip.tvshowreminder.model.database.TVShow;
 
 /**
  * Created by monilip on 2014-11-09.
