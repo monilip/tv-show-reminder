@@ -69,7 +69,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         // on tab selected
         // show respected fragment view
         viewPager.setCurrentItem(tab.getPosition());
-        //TODO
         //if tvshowsFragment checked for update
         if (tab.getPosition() == 1) {
             mAdapter.getTvshows().reload();

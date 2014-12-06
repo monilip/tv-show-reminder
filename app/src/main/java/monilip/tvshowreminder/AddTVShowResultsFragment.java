@@ -12,6 +12,7 @@ import java.util.List;
 
 import monilip.tvshowreminder.database.DatabaseHandler;
 import monilip.tvshowreminder.database.TVShow;
+import monilip.tvshowreminder.network.NetworkManager;
 
 /**
  * Created by monilip on 2014-11-26.
@@ -43,10 +44,13 @@ public class AddTVShowResultsFragment extends ListFragment {
         TVShow tvshowClicked = (TVShow) getListAdapter().getItem(position);
 
         DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
+        Log.d("TEST","Adding tvshow to database...");
         db.addTVShow(tvshowClicked);
-        //TODO
-        //get its episodes
-        //add those episodes to db
+
+        NetworkManager netManager = new NetworkManager(getActivity().getApplicationContext());
+        int[] TVDBids = {tvshowClicked.getTVDBid()};
+        Log.d("TEST","Adding tvshow's episodes to database...");
+        netManager.getTVShowData(TVDBids);
 
         Log.d("TEST", "TVshows "+tvshowClicked.getTitle()+ " has been added to db");
     }
