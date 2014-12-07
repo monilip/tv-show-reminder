@@ -72,7 +72,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         viewPager.setCurrentItem(tab.getPosition());
         //if tvshowsFragment checked for update
         if (tab.getPosition() == 1) {
-            mAdapter.getTvshows().reload();
+            mAdapter.getTvshows().loadTVShowsList();
         }
 
     }
@@ -84,6 +84,8 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
+        if (tab.getPosition() == 1) {
+            mAdapter.getTvshows().loadTVShowsList();
+        }
     }
 }
