@@ -1,9 +1,11 @@
 package monilip.tvshowreminder.model.database;
 
+import java.io.Serializable;
+
 /**
  * Created by monilip on 2014-11-07.
  */
-public class TVShow{
+public class TVShow implements Serializable{
 
     //private variables
     int id;

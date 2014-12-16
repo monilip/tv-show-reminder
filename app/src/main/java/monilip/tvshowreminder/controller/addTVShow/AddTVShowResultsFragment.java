@@ -19,6 +19,8 @@ import monilip.tvshowreminder.model.network.NetworkManager;
  * Created by monilip on 2014-11-26.
  */
 public class AddTVShowResultsFragment extends ListFragment {
+    ArrayAdapter<TVShow> adapter;
+
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         // storing string resources into Array
@@ -34,7 +36,7 @@ public class AddTVShowResultsFragment extends ListFragment {
             }
         }
         Log.d("TEST", "tvshows.size: " + tvshows.size());
-        ArrayAdapter<TVShow> adapter = new ArrayAdapter<TVShow>(getActivity().getApplicationContext(), R.layout.episodes_item,tvshows);
+        adapter = new ArrayAdapter<TVShow>(getActivity().getApplicationContext(), R.layout.episodes_item,tvshows);
 
         setListAdapter(adapter);
     }
@@ -55,4 +57,5 @@ public class AddTVShowResultsFragment extends ListFragment {
 
         Log.d("TEST", "TVshows "+tvshowClicked.getTitle()+ " has been added to db");
     }
+
 }

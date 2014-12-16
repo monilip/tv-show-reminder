@@ -118,6 +118,12 @@ public class AddTVShowFragment extends Fragment implements View.OnClickListener 
             fragmentManager = getFragmentManager();
             if (fragmentManager != null){
                 fragmentTransaction = fragmentManager.beginTransaction();
+
+                Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_addtvshow_results);
+                // if there is a fragment allready in the container
+                if (!(fragment == null)) {
+                    fragmentTransaction.remove(fragment);
+                }
                 Fragment resultsFragment = new AddTVShowResultsFragment();
                 resultsFragment.setArguments(bundle);
                 fragmentTransaction.add(R.id.fragment_addtvshow_results, resultsFragment);
