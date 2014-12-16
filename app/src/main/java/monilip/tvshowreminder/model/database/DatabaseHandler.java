@@ -145,6 +145,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public TVShow getTVShow(String title,int year) {
         SQLiteDatabase db = this.getReadableDatabase();
 
+        title = title.replace("'","''");
         String selectQuery = "SELECT * FROM " + TABLE_TVSHOWS + " WHERE "
                 + KEY_TITLE + " = '" + title + "' AND " + KEY_YEAR + " = " + year;
 
