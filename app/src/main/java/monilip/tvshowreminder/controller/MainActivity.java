@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import monilip.tvshowreminder.R;
+import monilip.tvshowreminder.Tests;
 import monilip.tvshowreminder.model.adapter.TabsPagerAdapter;
 
 /**
@@ -96,9 +97,13 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-        if (tab.getPosition() == 1) {
+        if (tab.getPosition() == 0) {
+            mAdapter.getDashboard().refresh();
+        } else if (tab.getPosition() == 1) {
             mAdapter.getTvshows().loadTVShowsList();
         }
+
+
     }
 
     @Override
@@ -108,8 +113,17 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
                 getApplicationContext().deleteDatabase("tvshowsManager");
                 Log.d("TEST", "database was deleted");
                 return true;
+            case R.id.action_tests:
+                tests();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void tests() {
+        Tests tests = new Tests();
+
+        tests.dashboardTest(getApplicationContext());
     }
 }

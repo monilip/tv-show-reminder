@@ -4,4 +4,7 @@
     <item android:id="@+id/action_clear_db"
         android:title="Clear database"
         android:showAsAction="never" />
+    <item android:id="@+id/action_tests"
+        android:title="Tests"
+        android:showAsAction="never" />
 </menu>

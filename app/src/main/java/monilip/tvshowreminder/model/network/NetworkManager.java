@@ -3,6 +3,7 @@ package monilip.tvshowreminder.model.network;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.w3c.dom.Document;
 
@@ -32,8 +33,10 @@ public class NetworkManager {
             String urlString = new String("http://thetvdb.com/data/series/" + TVDBids[i] + "/all/");
             urls[i] = urlString;
         }
+
         LoadTVShowDataASYNC task = new LoadTVShowDataASYNC();
         task.execute(urls);
+        Log.d("TEST","NetworkManager");
     }
 
 
@@ -63,6 +66,7 @@ public class NetworkManager {
                     }
                     //add episodes from tvshow
                     db.addEpisodesToTVShow(tvshowParser.getEpisodesDataList(), db.getTVShowByTVDBId(tvshowParser.getTVDBid()).getId());
+                    Log.d("TEST", "adding episodes...");
 
                 } catch (Exception e) {
                     e.printStackTrace();

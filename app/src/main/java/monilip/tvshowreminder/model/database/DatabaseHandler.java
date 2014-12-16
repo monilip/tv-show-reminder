@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.format.DateFormat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -77,6 +79,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public TVShow getTVShowFromEpisode(Episode episode){
+        return getTVShowById(episode.getTVShowId());
+    }
 
     //TV-SHOWS
     public void addTVShow(TVShow tvshow) {
@@ -113,7 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0 || !cursor.moveToFirst()){
             return null;
         }
 
@@ -131,7 +136,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-         if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0 || !cursor.moveToFirst()){
             return null;
         }
 
@@ -151,9 +156,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.getCount() == 0)
+        if (cursor.getCount() == 0 || !cursor.moveToFirst()) {
             return null;
-
+        }
         cursor.moveToFirst();
         TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
                 cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
@@ -217,7 +222,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0 || !cursor.moveToFirst()){
             return null;
         }
 
@@ -238,7 +243,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0 || !cursor.moveToFirst()){
             return null;
         }
 
@@ -288,6 +293,95 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 this.addEpisode(episode);
             }
         }
+    }
+
+    public List<Episode> getEpisodesFromDates(String fromDate,String toDate){
+        List<Episode> episodes = new ArrayList<Episode>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_EPISODES + " WHERE "
+                + "Date(" + KEY_DATE + ") >= Date('" + fromDate + "')"
+                + " AND Date(" + KEY_DATE + ") <= Date('" + toDate + "')"
+                + "ORDER BY + " + KEY_DATE;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
+                        cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+
+                episodes.add(episode);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return episodes;
+    }
+
+    public List<Episode> getEpisodesFromThisWeek(){
+        Calendar c = Calendar.getInstance();
+
+        String fromDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
+        int days = Calendar.SUNDAY - c.get(Calendar.DAY_OF_WEEK);
+        if (days < 0){
+            days+=7;
+        }
+        c.add(Calendar.DAY_OF_YEAR, days);
+
+        String toDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
+
+        return getEpisodesFromDates(fromDate,toDate);
+    }
+
+    public List<Episode> getEpisodesFromNextWeek(){
+        Calendar c = Calendar.getInstance();
+
+        int days = Calendar.MONDAY - c.get(Calendar.DAY_OF_WEEK);
+        if (days < 0){
+            days+=7;
+        }
+        c.add(Calendar.DAY_OF_YEAR, days);
+        String fromDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
+
+        days = Calendar.SUNDAY - c.get(Calendar.DAY_OF_WEEK);
+        if (days < 0){
+            days+=7;
+        }
+        c.add(Calendar.DAY_OF_YEAR, days);
+        String toDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
+
+        return getEpisodesFromDates(fromDate,toDate);
+    }
+
+    //episodes in this month but not in two weeks range
+    public List<Episode> getEpisodesFromRestOfMonth(){
+        Calendar c = Calendar.getInstance();
+        Integer daysOfMonth = c.get(Calendar.DAY_OF_MONTH);
+        int days = Calendar.MONDAY - c.get(Calendar.DAY_OF_WEEK);
+        if (days < 0){
+            days+=14;
+        }
+        c.add(Calendar.DAY_OF_YEAR, days);
+        String fromDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
+
+
+        c.set(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.getActualMaximum(Calendar.DAY_OF_MONTH));
+        String toDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
+
+        return getEpisodesFromDates(fromDate,toDate);
+    }
+    //episodes in this month but not in two weeks range
+    public List<Episode> getEpisodesFromNextMonth(){
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, 1);
+        c.set(Calendar.DATE, c.getActualMinimum(Calendar.DAY_OF_MONTH));
+        String fromDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
+        c.set(Calendar.DATE, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+        String toDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
+
+        return getEpisodesFromDates(fromDate,toDate);
     }
 
     //TODO

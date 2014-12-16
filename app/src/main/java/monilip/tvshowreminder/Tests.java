@@ -78,4 +78,32 @@ public class Tests {
         }
     }
 
+    public void dashboardTest(Context appContext){
+        DatabaseHandler db = new DatabaseHandler(appContext);
+
+        List<Episode> episodes;
+
+        episodes = db.getEpisodesFromThisWeek();
+        Log.d("TEST","Number of episodes from this week: "+episodes.size());
+        for(Episode ep : episodes){
+            Log.d("TEST",ep.getDate() + ": " + db.getTVShowFromEpisode(ep).getTitle() + " " + ep.getSeasonNumber() + "x" + ep.getEpisodeNumber() + " " + ep.getTitle());
+        }
+        episodes = db.getEpisodesFromNextWeek();
+        Log.d("TEST","Number of episodes from next week: "+episodes.size());
+        for(Episode ep : episodes){
+            Log.d("TEST",ep.getDate() + ": " + db.getTVShowFromEpisode(ep).getTitle() + " " + ep.getSeasonNumber() + "x" + ep.getEpisodeNumber() + " " + ep.getTitle());
+        }
+
+        episodes = db.getEpisodesFromRestOfMonth();
+        Log.d("TEST","Number of episodes from rest of month: "+episodes.size());
+        for(Episode ep : episodes){
+            Log.d("TEST",ep.getDate() + ": " + db.getTVShowFromEpisode(ep).getTitle() + " " + ep.getSeasonNumber() + "x" + ep.getEpisodeNumber() + " " + ep.getTitle());
+        }
+        episodes = db.getEpisodesFromNextMonth();
+        Log.d("TEST","Number of episodes from next month: "+episodes.size());
+        for(Episode ep : episodes){
+            Log.d("TEST",ep.getDate() + ": " + db.getTVShowFromEpisode(ep).getTitle() + " " + ep.getSeasonNumber() + "x" + ep.getEpisodeNumber() + " " + ep.getTitle());
+        }
+
+    }
 }
