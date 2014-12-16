@@ -63,7 +63,7 @@ public class AddTVShowFragment extends Fragment implements View.OnClickListener 
                     //Getting data from TVDB
                     String[] urls = new String[1];
                     String seriesname = tvshowName.getText().toString();
-                    seriesname.replace(' ','+');
+                    seriesname = seriesname.replace(' ','+');
                     urls[0] = "http://thetvdb.com/api/GetSeries.php?seriesname=" + seriesname;
 
                     LoadTVShowsASYNC task = new LoadTVShowsASYNC();
@@ -107,11 +107,6 @@ public class AddTVShowFragment extends Fragment implements View.OnClickListener 
 
         @Override
         protected void onPostExecute(String result) {
-           /* TextView resultsTextView = (TextView) getView().findViewById(R.id.TempResults);
-            resultsTextView.setText("Got " + tvshows.size() + " tvshows");
-            for(TVShow tvshow : tvshows){
-                resultsTextView.append(tvshow.getTitle()+"("+tvshow.getYear()+")");
-            }*/
             Log.d("TEST","I've got tvshows!");
             Bundle bundle = new Bundle();
             bundle.putSerializable("tvshowsResults",(Serializable) tvshows);

@@ -7,6 +7,10 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import monilip.tvshowreminder.R;
 import monilip.tvshowreminder.model.adapter.TabsPagerAdapter;
@@ -22,6 +26,14 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
     // Tab titles
     private String[] tabs = { "Dashboard", "TVShows", "Add TVShow"};
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +98,18 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
         if (tab.getPosition() == 1) {
             mAdapter.getTvshows().loadTVShowsList();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_clear_db:
+                getApplicationContext().deleteDatabase("tvshowsManager");
+                Log.d("TEST", "database was deleted");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

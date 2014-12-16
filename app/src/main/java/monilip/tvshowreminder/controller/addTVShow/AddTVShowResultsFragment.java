@@ -47,15 +47,19 @@ public class AddTVShowResultsFragment extends ListFragment {
         TVShow tvshowClicked = (TVShow) getListAdapter().getItem(position);
 
         DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
-        Log.d("TEST","Adding tvshow to database...");
-        db.addTVShow(tvshowClicked);
+        //if there is no tvshow like this in database
+        if (db.getTVShow(tvshowClicked.getTitle(),tvshowClicked.getYear()) == null){
+            Log.d("TEST","Adding tvshow to database...");
+            db.addTVShow(tvshowClicked);
 
-        NetworkManager netManager = new NetworkManager(getActivity().getApplicationContext());
-        int[] TVDBids = {tvshowClicked.getTVDBid()};
-        Log.d("TEST","Adding tvshow's episodes to database...");
-        netManager.getTVShowData(TVDBids);
+            NetworkManager netManager = new NetworkManager(getActivity().getApplicationContext());
+            int[] TVDBids = {tvshowClicked.getTVDBid()};
+            Log.d("TEST","Adding tvshow's episodes to database...");
+            netManager.getTVShowData(TVDBids);
 
-        Log.d("TEST", "TVshows "+tvshowClicked.getTitle()+ " has been added to db");
+            Log.d("TEST", "TVshows "+tvshowClicked.getTitle()+ " has been added to db");
+        }
+
     }
 
 }

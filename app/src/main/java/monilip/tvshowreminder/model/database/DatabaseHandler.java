@@ -113,7 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor == null || !cursor.moveToFirst()){
+        if (cursor.getCount() == 0){
             return null;
         }
 
@@ -131,7 +131,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor == null || !cursor.moveToFirst()){
+         if (cursor.getCount() == 0){
             return null;
         }
 
@@ -150,7 +150,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor == null)
+        if (cursor.getCount() == 0)
             return null;
 
         cursor.moveToFirst();
@@ -216,7 +216,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor == null || !cursor.moveToFirst()){
+        if (cursor.getCount() == 0){
             return null;
         }
 
@@ -237,7 +237,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor == null || !cursor.moveToFirst()){
+        if (cursor.getCount() == 0){
             return null;
         }
 
