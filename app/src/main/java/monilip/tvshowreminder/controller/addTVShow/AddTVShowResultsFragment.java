@@ -59,6 +59,7 @@ public class AddTVShowResultsFragment extends ListFragment {
 
             Log.d("TEST", "TVshows "+tvshowClicked.getTitle()+ " has been added to db");
         }
+        db.close();
 
     }
 

@@ -59,6 +59,7 @@ public class TVShowsListFragment extends ListFragment {
         DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
 
         List<TVShow> tvshows = db.getAllTVShows();
+        db.close();
         return tvshows;
     }
 

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import monilip.tvshowreminder.R;
 import monilip.tvshowreminder.Tests;
 import monilip.tvshowreminder.model.adapter.TabsPagerAdapter;
+import monilip.tvshowreminder.model.database.DatabaseHandler;
 
 /**
  * Created by monilip on 2014-11-26.
@@ -125,5 +126,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         Tests tests = new Tests();
 
         tests.dashboardTest(getApplicationContext());
+
     }
 }

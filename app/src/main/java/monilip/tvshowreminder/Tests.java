@@ -16,32 +16,6 @@ import monilip.tvshowreminder.model.network.NetworkManager;
  */
 public class Tests {
 
-    //tests for Database functionality
-    public static void databaseTest(DatabaseHandler dbHandler){
-        //databaseHandler
-        Log.d("TEST","databaseTest");
-
-        //databaseHandler
-        TVShow tvshow = addTestTVShow(dbHandler);
-        addTestEpisode(dbHandler, tvshow);
-
-        Episode episode = dbHandler.getEpisode(tvshow.getId(),1,1);
-        Log.d("TEST", tvshow.toString());
-        Log.d("TEST",episode.toString());
-    }
-    private static TVShow addTestTVShow(DatabaseHandler db) {
-        //TestTVShow
-        TVShow testTvshow = new TVShow(12345, "Test",2014);
-
-        db.addTVShow(testTvshow);
-        return testTvshow;
-    }
-    private static void addTestEpisode(DatabaseHandler db, TVShow tvshow) {
-        //TestEpisode
-        Episode testEp = new Episode(tvshow.getId(),1,1,"Pilot","07-11-2014");
-
-        db.addEpisode(testEp);
-    }
 
     //tests for Network functionallty
     public static void networkTest(Context appContext){
@@ -83,27 +57,12 @@ public class Tests {
 
         List<Episode> episodes;
 
-        episodes = db.getEpisodesFromThisWeek();
+        episodes = db.getNextEpisodesData();
         Log.d("TEST","Number of episodes from this week: "+episodes.size());
         for(Episode ep : episodes){
             Log.d("TEST",ep.getDate() + ": " + db.getTVShowFromEpisode(ep).getTitle() + " " + ep.getSeasonNumber() + "x" + ep.getEpisodeNumber() + " " + ep.getTitle());
         }
-        episodes = db.getEpisodesFromNextWeek();
-        Log.d("TEST","Number of episodes from next week: "+episodes.size());
-        for(Episode ep : episodes){
-            Log.d("TEST",ep.getDate() + ": " + db.getTVShowFromEpisode(ep).getTitle() + " " + ep.getSeasonNumber() + "x" + ep.getEpisodeNumber() + " " + ep.getTitle());
-        }
 
-        episodes = db.getEpisodesFromRestOfMonth();
-        Log.d("TEST","Number of episodes from rest of month: "+episodes.size());
-        for(Episode ep : episodes){
-            Log.d("TEST",ep.getDate() + ": " + db.getTVShowFromEpisode(ep).getTitle() + " " + ep.getSeasonNumber() + "x" + ep.getEpisodeNumber() + " " + ep.getTitle());
-        }
-        episodes = db.getEpisodesFromNextMonth();
-        Log.d("TEST","Number of episodes from next month: "+episodes.size());
-        for(Episode ep : episodes){
-            Log.d("TEST",ep.getDate() + ": " + db.getTVShowFromEpisode(ep).getTitle() + " " + ep.getSeasonNumber() + "x" + ep.getEpisodeNumber() + " " + ep.getTitle());
-        }
 
     }
 }

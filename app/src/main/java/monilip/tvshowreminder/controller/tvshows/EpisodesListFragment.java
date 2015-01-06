@@ -43,7 +43,7 @@ public class EpisodesListFragment extends ListFragment {
                 episodesList.add("Episodes: '" + episodes.get(i).getTitle() + "' ( " + episodes.get(i).getDate() + ")");
             }
         }
-
+        db.close();
         return episodesList;
     }
 

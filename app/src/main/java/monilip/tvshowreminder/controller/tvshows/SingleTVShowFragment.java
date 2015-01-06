@@ -40,6 +40,7 @@ public class SingleTVShowFragment extends Fragment implements View.OnClickListen
         tvshowID = getArguments().getInt("tvshowID");
         DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
         TVShow tvshow = db.getTVShowById(tvshowID);
+        db.close();
         TextView title = (TextView) view.findViewById(R.id.tvshowSingle);
         title.setText(tvshow.getTitle());
         return view;

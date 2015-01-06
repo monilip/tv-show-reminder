@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -320,69 +321,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return episodes;
     }
 
-    public List<Episode> getEpisodesFromThisWeek(){
-        Calendar c = Calendar.getInstance();
+    public List<Episode> getNextEpisodesData(){
+        List<Episode> episodes = new ArrayList<Episode>();
+        SQLiteDatabase db = this.getReadableDatabase();
 
-        String fromDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
-        int days = Calendar.SUNDAY - c.get(Calendar.DAY_OF_WEEK);
-        if (days < 0){
-            days+=7;
+        String selectQuery = "SELECT  * FROM " + TABLE_EPISODES + " WHERE "
+                + "Date(" + KEY_DATE + ") >= DATE('now', '-1 day') "
+                + "GROUP BY " + KEY_TVSHOW_ID + " "
+                + "ORDER BY " + KEY_DATE;
+        Log.d("TEXT",selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
+                        cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+
+                episodes.add(episode);
+            } while (cursor.moveToNext());
         }
-        c.add(Calendar.DAY_OF_YEAR, days);
 
-        String toDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
+        cursor.close();
+        return episodes;
 
-        return getEpisodesFromDates(fromDate,toDate);
     }
 
-    public List<Episode> getEpisodesFromNextWeek(){
-        Calendar c = Calendar.getInstance();
 
-        int days = Calendar.MONDAY - c.get(Calendar.DAY_OF_WEEK);
-        if (days < 0){
-            days+=7;
-        }
-        c.add(Calendar.DAY_OF_YEAR, days);
-        String fromDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
-
-        days = Calendar.SUNDAY - c.get(Calendar.DAY_OF_WEEK);
-        if (days < 0){
-            days+=7;
-        }
-        c.add(Calendar.DAY_OF_YEAR, days);
-        String toDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
-
-        return getEpisodesFromDates(fromDate,toDate);
-    }
-
-    //episodes in this month but not in two weeks range
-    public List<Episode> getEpisodesFromRestOfMonth(){
-        Calendar c = Calendar.getInstance();
-        Integer daysOfMonth = c.get(Calendar.DAY_OF_MONTH);
-        int days = Calendar.MONDAY - c.get(Calendar.DAY_OF_WEEK);
-        if (days < 0){
-            days+=14;
-        }
-        c.add(Calendar.DAY_OF_YEAR, days);
-        String fromDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
-
-
-        c.set(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.getActualMaximum(Calendar.DAY_OF_MONTH));
-        String toDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
-
-        return getEpisodesFromDates(fromDate,toDate);
-    }
-    //episodes in this month but not in two weeks range
-    public List<Episode> getEpisodesFromNextMonth(){
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.MONTH, 1);
-        c.set(Calendar.DATE, c.getActualMinimum(Calendar.DAY_OF_MONTH));
-        String fromDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
-        c.set(Calendar.DATE, c.getActualMaximum(Calendar.DAY_OF_MONTH));
-        String toDate = DateFormat.format("yyyy-MM-dd", c.getTime()).toString();
-
-        return getEpisodesFromDates(fromDate,toDate);
-    }
 
     //TODO
 

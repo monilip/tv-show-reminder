@@ -30,13 +30,11 @@ public class NetworkManager {
         String[] urls = new String[TVDBids.length];
 
         for(int i = 0; i < TVDBids.length; i++) {
-            String urlString = new String("http://thetvdb.com/data/series/" + TVDBids[i] + "/all/");
+            String urlString = new String("http://thetvdb.com/api/BBFB91B2F4736182/series/" + TVDBids[i] + "/all/");
             urls[i] = urlString;
         }
-
         LoadTVShowDataASYNC task = new LoadTVShowDataASYNC();
         task.execute(urls);
-        Log.d("TEST","NetworkManager");
     }
 
 
@@ -64,9 +62,11 @@ public class NetworkManager {
                         //add tvshow to database
                         db.addTVShow(tvshowParser.getTVShow());
                     }
+                    Log.d("TEST", "adding episodes...");
                     //add episodes from tvshow
                     db.addEpisodesToTVShow(tvshowParser.getEpisodesDataList(), db.getTVShowByTVDBId(tvshowParser.getTVDBid()).getId());
-                    Log.d("TEST", "adding episodes...");
+
+                    Log.d("TEST", "Episodes added");
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -75,6 +75,17 @@ public class NetworkManager {
             return null;
         }
 
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            db.close();
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            db.close();
+        }
     }
 
 
