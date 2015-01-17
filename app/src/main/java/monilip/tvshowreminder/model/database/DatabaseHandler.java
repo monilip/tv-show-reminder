@@ -36,6 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_EPISODE_NUMBER = "episodeNumber";
     private static final String KEY_DATE = "date";
     private static final String KEY_YEAR = "year";
+    private static final String KEY_DESCRIPION = "description";
 
 
 
@@ -52,7 +53,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_TVDB_ID + " INTEGER,"
                 + KEY_TITLE + " TEXT,"
-                + KEY_YEAR + " INTEGER"
+                + KEY_YEAR + " INTEGER,"
+               // + KEY_DESCRIPION + " TEXT"
                 + ")";
         db.execSQL(CREATE_TVSHOWS_TABLE);
 
@@ -64,6 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_EPISODE_NUMBER + " INTEGER,"
                 + KEY_TITLE + " TEXT,"
                 + KEY_DATE + " TEXT,"
+               // + KEY_DESCRIPION + " TEXT,"
                 + "FOREIGN KEY (" + KEY_TVSHOW_ID + ") REFERENCES " + TABLE_TVSHOWS + "(" + KEY_ID + ")"
                 + ")";
         db.execSQL(CREATE_EPISODES_TABLE);

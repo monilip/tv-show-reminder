@@ -81,6 +81,7 @@ public class TVShowParser {
                 episode[1] = this.getElementValue(element, "EpisodeNumber");
                 episode[2] = this.getElementValue(element, "EpisodeName");
                 episode[3] = this.getElementValue(element, "FirstAired");
+               // episode[4] = this.getElementValue(element, "Overview");
                 episodes.add(episode);
              }
         }

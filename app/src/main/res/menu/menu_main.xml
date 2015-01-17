@@ -1,6 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="monilip.tvshowreminder.controller.MainActivity">
+    <item android:id="@+id/action_refresh"
+        android:title="Refresh"
+        android:showAsAction="ifRoom" />
     <item android:id="@+id/action_clear_db"
         android:title="Clear database"
         android:showAsAction="never" />
