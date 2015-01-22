@@ -54,7 +54,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_TVDB_ID + " INTEGER,"
                 + KEY_TITLE + " TEXT,"
                 + KEY_YEAR + " INTEGER,"
-               // + KEY_DESCRIPION + " TEXT"
+                + KEY_DESCRIPION + " TEXT"
                 + ")";
         db.execSQL(CREATE_TVSHOWS_TABLE);
 
@@ -66,7 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_EPISODE_NUMBER + " INTEGER,"
                 + KEY_TITLE + " TEXT,"
                 + KEY_DATE + " TEXT,"
-               // + KEY_DESCRIPION + " TEXT,"
+                + KEY_DESCRIPION + " TEXT,"
                 + "FOREIGN KEY (" + KEY_TVSHOW_ID + ") REFERENCES " + TABLE_TVSHOWS + "(" + KEY_ID + ")"
                 + ")";
         db.execSQL(CREATE_EPISODES_TABLE);
@@ -95,19 +95,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TITLE, tvshow.getTitle());
         values.put(KEY_TVDB_ID, tvshow.getTVDBid());
         values.put(KEY_YEAR, tvshow.getYear());
+        values.put(KEY_DESCRIPION, tvshow.getDescription());
 
         // inserting row
         db.insert(TABLE_TVSHOWS, null, values);
         db.close(); // Closing database connection
     }
 
-    public void addTVShow(int tvdbIt, String title, int year) {
+    public void addTVShow(int tvdbIt, String title, int year, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, title);
         values.put(KEY_TVDB_ID, tvdbIt);
         values.put(KEY_YEAR, year);
+        values.put(KEY_DESCRIPION, description);
 
         // inserting Row
         db.insert(TABLE_TVSHOWS, null, values);
@@ -127,7 +129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
-                cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
+                cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)),cursor.getString(cursor.getColumnIndex(KEY_DESCRIPION)));
 
         return tvshow;
     }
@@ -145,7 +147,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
-                cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
+                cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)),cursor.getString(cursor.getColumnIndex(KEY_DESCRIPION)));
 
         cursor.close();
         return tvshow;
@@ -165,7 +167,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         cursor.moveToFirst();
         TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
-                cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)));
+                cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)),cursor.getString(cursor.getColumnIndex(KEY_DESCRIPION)));
+
 
         cursor.close();
         return tvshow;
@@ -190,10 +193,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                        cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
-                        cursor.getString(cursor.getColumnIndex(KEY_TITLE)),
-                        cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)));
+                TVShow tvshow = new TVShow(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVDB_ID)),
+                        cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getInt(cursor.getColumnIndex(KEY_YEAR)),cursor.getString(cursor.getColumnIndex(KEY_DESCRIPION)));
+
 
                 tvshows.add(tvshow);
             } while (cursor.moveToNext());
@@ -212,7 +214,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_EPISODE_NUMBER, episode.getEpisodeNumber());
         values.put(KEY_TITLE, episode.getTitle());
         values.put(KEY_DATE, episode.getDate());
-
+        values.put(KEY_DESCRIPION, episode.getDescription());
         // inserting row
         db.insert(TABLE_EPISODES, null, values);
         db.close(); // Closing database connection
@@ -231,8 +233,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
-                cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
-
+                cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),
+                cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)),
+                cursor.getString(cursor.getColumnIndex(KEY_DESCRIPION)));
         cursor.close();
         return episode;
     }
@@ -252,7 +255,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
-                cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+                cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),
+                cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)),
+                cursor.getString(cursor.getColumnIndex(KEY_DESCRIPION)));
 
         cursor.close();
         return episode;
@@ -278,7 +283,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
-                        cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+                        cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),
+                        cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)),
+                        cursor.getString(cursor.getColumnIndex(KEY_DESCRIPION)));
 
                 episodes.add(episode);
             } while (cursor.moveToNext());
@@ -292,7 +299,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Integer episodesCount =  episodesDataList.size();
         for (int i = 0; i < episodesCount; i++) {
             String[] epData = episodesDataList.get(i);
-            Episode episode = new Episode(tvshowId,Integer.parseInt(epData[0]),Integer.parseInt(epData[1]),epData[2],epData[3]);
+            Episode episode = new Episode(tvshowId,Integer.parseInt(epData[0]),Integer.parseInt(epData[1]),epData[2],epData[3],epData[4]);
             if (!this.isEpisode(episode)) {
                 this.addEpisode(episode);
             }
@@ -314,8 +321,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
-                        cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
-
+                        cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),
+                        cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)),
+                        cursor.getString(cursor.getColumnIndex(KEY_DESCRIPION)));
                 episodes.add(episode);
             } while (cursor.moveToNext());
         }
@@ -338,8 +346,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Episode episode = new Episode(cursor.getInt(cursor.getColumnIndex(KEY_ID)),cursor.getInt(cursor.getColumnIndex(KEY_TVSHOW_ID)),
-                        cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)));
-
+                        cursor.getInt(cursor.getColumnIndex(KEY_SEASON_NUMBER)),cursor.getInt(cursor.getColumnIndex(KEY_EPISODE_NUMBER)),
+                        cursor.getString(cursor.getColumnIndex(KEY_TITLE)),cursor.getString(cursor.getColumnIndex(KEY_DATE)),
+                        cursor.getString(cursor.getColumnIndex(KEY_DESCRIPION)));
                 episodes.add(episode);
             } while (cursor.moveToNext());
         }

@@ -54,8 +54,14 @@ public class TVShowParser {
         return Integer.parseInt(date.substring(0,4));
     }
 
+    public String getDescription() {
+        Element seriesInfo = (Element) this.getSeriesNode();
+        NodeList title = seriesInfo.getElementsByTagName("SeriesName");
+        return title.item(0).getTextContent();
+    }
+
     public TVShow getTVShow(){
-        TVShow TVShow = new TVShow(this.getTVDBid(), this.getTitle(),this.getYear());
+        TVShow TVShow = new TVShow(this.getTVDBid(), this.getTitle(),this.getYear(),this.getDescription());
         return TVShow;
     }
 
@@ -76,16 +82,15 @@ public class TVShowParser {
         for (int i = 0; i < episodesCount; i++) {
             Element element = (Element) this.getEpisodesNodes().item(i);
             if (Integer.parseInt(this.getElementValue(element, "SeasonNumber")) != 0){
-                String[] episode = new String[4];
+                String[] episode = new String[5];
                 episode[0] = this.getElementValue(element, "SeasonNumber");
                 episode[1] = this.getElementValue(element, "EpisodeNumber");
                 episode[2] = this.getElementValue(element, "EpisodeName");
                 episode[3] = this.getElementValue(element, "FirstAired");
-               // episode[4] = this.getElementValue(element, "Overview");
+                episode[4] = this.getElementValue(element, "Overview");
                 episodes.add(episode);
              }
         }
         return episodes;
     }
-
 }

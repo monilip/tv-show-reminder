@@ -28,25 +28,7 @@ public class Tests {
         ConnectionDetector connectionDetector = new ConnectionDetector(appContext);
         if (connectionDetector.isConnected()){
             Log.d("TEST","App is connected to the Internet");
-            NetworkManager netManager = new NetworkManager(appContext);
-            int[] TVDBids = {274431}; //"Gotham" (2014)
-            Log.d("TEST","Adding tvshow to database...");
-            netManager.getTVShowData(TVDBids);
 
-            Log.d("TEST","Getting tvshow from database...");
-
-
-            TVShow tvshow = db.getTVShowByTVDBId(274431); // "Gotham" (2014)
-            if (tvshow !=null) {
-                Log.d("TEST", "Show title: " + tvshow.getTitle());
-
-                List<Episode> episodes = db.getAllEpisodeFromTVShow(tvshow.getId());
-                for(int i=0;i < episodes.size();i++){
-                    Log.d("TEST","Episode " + episodes.get(i).getEpisodeNumber() + ": '" + episodes.get(i).getTitle() + "', date: " + episodes.get(i).getDate());
-                }
-            } else {
-                Log.d("TEST","TVShow is still downloading, try later");
-            }
         } else {
             Log.d("TEST","App is not connected to the Internet");
         }

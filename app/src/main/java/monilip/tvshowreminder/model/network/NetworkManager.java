@@ -1,6 +1,9 @@
 package monilip.tvshowreminder.model.network;
 
 
+import android.app.Activity;
+import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -21,9 +24,11 @@ import monilip.tvshowreminder.model.network.TVDB.TVShowParser;
  */
 public class NetworkManager {
     private Context context;
+    private Activity activiy;
 
-    public NetworkManager(Context context){
+    public NetworkManager(Context context, Activity activiy){
         this.context = context;
+        this.activiy = activiy;
     }
 
     public void getTVShowData(int[] TVDBids) {
@@ -40,9 +45,14 @@ public class NetworkManager {
 
     //loads tv shows data from xml from urls to database
     private class LoadTVShowDataASYNC extends AsyncTask<String, Void, String> {
-
         DatabaseHandler db = new DatabaseHandler(context);
+        ProgressDialog progressDialog;
+        @Override
 
+        protected void onPreExecute()
+        {
+            progressDialog = ProgressDialog.show(activiy, "Please wait","Getting tvshow's data from database", true);
+        };
         @Override
         protected String doInBackground(String... urls) {
 
@@ -79,6 +89,8 @@ public class NetworkManager {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             db.close();
+            progressDialog.dismiss();
+
         }
 
         @Override

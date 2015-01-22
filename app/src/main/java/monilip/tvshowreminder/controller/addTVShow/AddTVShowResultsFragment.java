@@ -52,7 +52,7 @@ public class AddTVShowResultsFragment extends ListFragment {
             Log.d("TEST","Adding tvshow to database...");
             db.addTVShow(tvshowClicked);
 
-            NetworkManager netManager = new NetworkManager(getActivity().getApplicationContext());
+            NetworkManager netManager = new NetworkManager(getActivity().getApplicationContext(),getActivity());
             int[] TVDBids = {tvshowClicked.getTVDBid()};
             Log.d("TEST","Adding tvshow's episodes to database...");
             netManager.getTVShowData(TVDBids);

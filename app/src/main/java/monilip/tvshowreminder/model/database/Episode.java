@@ -12,28 +12,31 @@ public class Episode {
     int episodeNumber;
     String title;
     String date;
+    String description;
 
     // empty constructor
     public Episode() {
     }
 
     // constructor
-    public Episode(int id, int TVShowId, int seasonNumber, int episodeNumber, String title, String date) {
+    public Episode(int id, int TVShowId, int seasonNumber, int episodeNumber, String title, String date, String description) {
         this.id = id;
         this.TVShowId = TVShowId;
         this.seasonNumber = seasonNumber;
         this.episodeNumber = episodeNumber;
         this.title = title;
         this.date = date;
+        this.description = description;
     }
 
     // constructor
-    public Episode(int TVShowId, int seasonNumber, int episodeNumber, String title, String date) {
+    public Episode(int TVShowId, int seasonNumber, int episodeNumber, String title, String date, String description) {
         this.TVShowId = TVShowId;
         this.seasonNumber = seasonNumber;
         this.episodeNumber = episodeNumber;
         this.title = title;
         this.date = date;
+        this.description = description;
     }
 
     public int getId() {
@@ -82,5 +85,13 @@ public class Episode {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

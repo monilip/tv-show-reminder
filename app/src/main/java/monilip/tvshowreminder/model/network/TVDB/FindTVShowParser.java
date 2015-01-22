@@ -31,8 +31,14 @@ public class FindTVShowParser {
 
     public TVShow getTVShowData(int orderNumber){
         Node tvshow = this.getTVShow(orderNumber);
-        TVShow show = new TVShow(this.getTVDBid(tvshow),this.getTitle(tvshow),this.getYear(tvshow));
+        TVShow show = new TVShow(this.getTVDBid(tvshow),this.getTitle(tvshow),this.getYear(tvshow),this.getDescription(tvshow));
         return show;
+    }
+
+    private String getDescription(Node tvshow) {
+        Element seriesInfo = (Element) tvshow;
+        NodeList title = seriesInfo.getElementsByTagName("Overview");
+        return title.item(0).getTextContent();
     }
 
     public Node getTVShow(int orderNumber){

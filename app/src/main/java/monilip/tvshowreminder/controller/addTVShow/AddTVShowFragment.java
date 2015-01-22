@@ -1,5 +1,6 @@
 package monilip.tvshowreminder.controller.addTVShow;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -80,6 +81,12 @@ public class AddTVShowFragment extends Fragment implements View.OnClickListener 
     //loads tv shows from xml from urls
     private class LoadTVShowsASYNC extends AsyncTask<String, Void, String> {
         List<TVShow> tvshows = new ArrayList<TVShow>();
+        ProgressDialog progressDialog;
+        @Override
+        protected void onPreExecute()
+        {
+            progressDialog = ProgressDialog.show(getActivity(), "Please wait","Getting data from database", true);
+        };
 
         @Override
         protected String doInBackground(String... urls) {
@@ -107,7 +114,9 @@ public class AddTVShowFragment extends Fragment implements View.OnClickListener 
 
         @Override
         protected void onPostExecute(String result) {
+
             Log.d("TEST","I've got tvshows!");
+            progressDialog.dismiss();
             Bundle bundle = new Bundle();
             bundle.putSerializable("tvshowsResults",(Serializable) tvshows);
             fragmentManager = getFragmentManager();

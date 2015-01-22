@@ -3,7 +3,9 @@ package monilip.tvshowreminder.controller;
 
 
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -53,6 +55,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         inflater.inflate(R.menu.menu_main, menu);
 
         return super.onCreateOptionsMenu(menu);
+
     }
 
     @Override
@@ -158,7 +161,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
                 TVDBids[i] = tvshows.get(i).getTVDBid();
             }
 
-            NetworkManager netManager = new NetworkManager(getApplicationContext());
+            NetworkManager netManager = new NetworkManager(getApplicationContext(),this);
             Log.d("TEST","Adding tvshows' episodes to database...");
             netManager.getTVShowData(TVDBids);
 
@@ -173,5 +176,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         tests.dashboardTest(getApplicationContext());
 
     }
+
+
 
 }

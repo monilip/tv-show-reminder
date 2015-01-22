@@ -12,24 +12,27 @@ public class TVShow implements Serializable{
     int TVDBid;
     String title;
     Integer year;
+    private String description;
 
     // empty constructor
     public TVShow() {
     }
 
     // constructor
-    public TVShow(int id, int TVDBid, String title, Integer year) {
+    public TVShow(int id, int TVDBid, String title, Integer year,String description) {
         this.id = id;
         this.TVDBid = TVDBid;
         this.title = title;
         this.year = year;
+        this.description = description;
     }
 
     // constructor
-    public TVShow( int TVDBid, String title, Integer year) {
+    public TVShow( int TVDBid, String title, Integer year,String description) {
         this.TVDBid = TVDBid;
         this.title = title;
         this.year = year;
+        this.description = description;
     }
 
     @Override
@@ -71,4 +74,11 @@ public class TVShow implements Serializable{
     }
 
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

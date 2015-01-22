@@ -35,14 +35,19 @@ public class SingleTVShowFragment extends Fragment implements View.OnClickListen
 
         View view = inflater.inflate(R.layout.fragment_tvshows_single, container, false);
 
+
         Button searchButton = (Button) view.findViewById(R.id.tvshowEpisodes);
         searchButton.setOnClickListener(this);
         tvshowID = getArguments().getInt("tvshowID");
         DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
         TVShow tvshow = db.getTVShowById(tvshowID);
         db.close();
+
+
         TextView title = (TextView) view.findViewById(R.id.tvshowSingle);
-        title.setText(tvshow.getTitle());
+        title.setText(tvshow.getTitle()+": "+tvshow.getDescription());
+
+
         return view;
     }
 

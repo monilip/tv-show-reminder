@@ -40,7 +40,7 @@ public class EpisodesListFragment extends ListFragment {
             episodesList.add("No episodes in database");
         } else {
             for (int i = 0; i < episodes.size(); i++) {
-                episodesList.add("Episodes: '" + episodes.get(i).getTitle() + "' ( " + episodes.get(i).getDate() + ")");
+                episodesList.add("Episode " + episodes.get(i).getSeasonNumber() + "x" + episodes.get(i).getEpisodeNumber() + ": '" + episodes.get(i).getTitle() + "' ( " + episodes.get(i).getDate() + ")");
             }
         }
         db.close();
