@@ -14,6 +14,7 @@ import java.util.List;
 
 import monilip.tvshowreminder.R;
 import monilip.tvshowreminder.model.adapter.CustomTVShowListAdapter;
+import monilip.tvshowreminder.model.adapter.SmallCustomTVShowListAdapter;
 import monilip.tvshowreminder.model.database.DatabaseHandler;
 import monilip.tvshowreminder.model.database.TVShow;
 
@@ -24,13 +25,13 @@ public class TVShowsListFragment extends ListFragment {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    CustomTVShowListAdapter adapter;
+    SmallCustomTVShowListAdapter adapter;
 
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
         List<TVShow> tvshowsList = this.getListData();
-        adapter = new CustomTVShowListAdapter(this.getActivity(), tvshowsList);
+        adapter = new SmallCustomTVShowListAdapter(this.getActivity(), tvshowsList);
         setListAdapter(adapter);
     }
 

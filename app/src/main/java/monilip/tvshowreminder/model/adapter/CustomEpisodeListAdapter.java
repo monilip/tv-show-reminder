@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -55,6 +56,7 @@ public class CustomEpisodeListAdapter extends BaseAdapter {
         TextView tvshowTitle = (TextView) view.findViewById(R.id.tvshowTitle);
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView date = (TextView) view.findViewById(R.id.date);
+
 
         //Getting tvshow data for the row
         Episode episode = episodeList.get(i);

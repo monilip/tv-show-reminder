@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import monilip.tvshowreminder.R;
@@ -52,6 +53,11 @@ public class SingleTVShowFragment extends Fragment implements View.OnClickListen
 
         TextView description = (TextView) view.findViewById(R.id.description);
         description.setText(tvshow.getDescription());
+
+        ImageView banner = (ImageView) view.findViewById(R.id.banner);
+        //TODO
+        //get banner per tvshow
+        banner.setImageResource(R.drawable.banner);
 
         return view;
     }

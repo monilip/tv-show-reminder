@@ -17,13 +17,13 @@ import monilip.tvshowreminder.model.database.TVShow;
 /**
  * Created by monilip on 2015-01-27.
  */
-public class CustomTVShowListAdapter extends BaseAdapter {
+public class SmallCustomTVShowListAdapter extends BaseAdapter {
 
     private Activity activity;
     private LayoutInflater inflater;
     private List<TVShow> tvshowsList;
 
-    public CustomTVShowListAdapter(Activity activity, List<TVShow> tvshowsList) {
+    public SmallCustomTVShowListAdapter(Activity activity, List<TVShow> tvshowsList) {
         super();
         this.tvshowsList = tvshowsList;
         this.activity = activity;
@@ -50,26 +50,16 @@ public class CustomTVShowListAdapter extends BaseAdapter {
             inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (view == null) {
-            view = inflater.inflate(R.layout.list_item_tvshow, null);
+            view = inflater.inflate(R.layout.list_small_item_tvshow, null);
         }
-        TextView title = (TextView) view.findViewById(R.id.title);
-        TextView description = (TextView) view.findViewById(R.id.description);
-        TextView year = (TextView) view.findViewById(R.id.releaseYear);
+
         ImageView banner = (ImageView) view.findViewById(R.id.banner);
-
-        //Getting tvshow data for the row
-        TVShow tvshow = tvshowsList.get(i);
-
-        //Title
-        title.setText(tvshow.getTitle());
-        //Description
-        description.setText(tvshow.getDescription());
-        //Year
-        year.setText(tvshow.getYear().toString());
 
         //TODO
         //get banner per tvshow
         banner.setImageResource(R.drawable.banner);
+
+
 
         return view;
     }
