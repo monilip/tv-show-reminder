@@ -3,14 +3,87 @@
     android:layout_height="match_parent" tools:context="monilip.tvshowreminder.controller.tvshows.TVShowsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView  android:id="@+id/tvshowSingle"
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="This is single tvshow!"/>
+        <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="0">
 
-    <Button android:id="@+id/tvshowEpisodes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to see its episodes"
-        android:layout_marginTop="15dip" />
+            <GridLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:id="@+id/imageView2"
+                    android:layout_row="0"
+                    android:layout_column="0" />
+
+                <GridLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_column="1"
+                    android:layout_row="0">
+
+
+                    <TextView  android:id="@+id/title"
+
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:text="Gotham"
+                        android:layout_row="0"
+                        android:layout_column="0" />
+
+                    <GridLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_column="0"
+                        android:layout_row="1">
+
+                        <TextView
+                            android:id="@+id/releaseYear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:textSize="20sp"
+                            android:text="2014"
+                            android:layout_row="0"
+                            android:layout_column="1" />
+
+                        <TextView
+                            android:textSize="20sp"
+                            android:text="Release year: "
+                            android:layout_row="0"
+                            android:layout_column="0" />
+                    </GridLayout>
+
+                </GridLayout>
+            </GridLayout>
+
+        </GridLayout>
+
+        <TextView  android:id="@+id/description"
+
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="BLablabla description"
+            android:layout_row="2"
+            android:layout_column="0" />
+
+        <Button android:id="@+id/tvshowEpisodes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to see its episodes"
+            android:layout_marginTop="15dip"
+            android:layout_row="3"
+            android:layout_column="0" />
+
+    </GridLayout>
+
 </FrameLayout>

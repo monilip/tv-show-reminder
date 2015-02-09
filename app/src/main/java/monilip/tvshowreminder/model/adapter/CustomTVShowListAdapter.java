@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import monilip.tvshowreminder.R;
-import monilip.tvshowreminder.controller.tvshows.TVShowsListFragment;
 import monilip.tvshowreminder.model.database.TVShow;
 
 /**
@@ -50,7 +49,7 @@ public class CustomTVShowListAdapter extends BaseAdapter {
             inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (view == null) {
-            view = inflater.inflate(R.layout.tvshow_item, null);
+            view = inflater.inflate(R.layout.list_item_tvshow, null);
         }
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView description = (TextView) view.findViewById(R.id.description);

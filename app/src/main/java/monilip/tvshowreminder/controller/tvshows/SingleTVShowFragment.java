@@ -44,9 +44,14 @@ public class SingleTVShowFragment extends Fragment implements View.OnClickListen
         db.close();
 
 
-        TextView title = (TextView) view.findViewById(R.id.tvshowSingle);
-        title.setText(tvshow.getTitle()+": "+tvshow.getDescription());
+        TextView title = (TextView) view.findViewById(R.id.title);
+        title.setText(tvshow.getTitle());
 
+        TextView year = (TextView) view.findViewById(R.id.releaseYear);
+        year.setText(tvshow.getYear().toString());
+
+        TextView description = (TextView) view.findViewById(R.id.description);
+        description.setText(tvshow.getDescription());
 
         return view;
     }
