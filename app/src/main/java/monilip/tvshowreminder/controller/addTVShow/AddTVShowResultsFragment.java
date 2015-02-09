@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import monilip.tvshowreminder.R;
+import monilip.tvshowreminder.model.adapter.CustomEpisodeListAdapter;
+import monilip.tvshowreminder.model.adapter.CustomTVShowListAdapter;
 import monilip.tvshowreminder.model.database.DatabaseHandler;
 import monilip.tvshowreminder.model.database.TVShow;
 import monilip.tvshowreminder.model.network.NetworkManager;
@@ -19,7 +21,7 @@ import monilip.tvshowreminder.model.network.NetworkManager;
  * Created by monilip on 2014-11-26.
  */
 public class AddTVShowResultsFragment extends ListFragment {
-    ArrayAdapter<TVShow> adapter;
+    CustomTVShowListAdapter adapter;
 
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -36,8 +38,8 @@ public class AddTVShowResultsFragment extends ListFragment {
             }
         }
         Log.d("TEST", "tvshows.size: " + tvshows.size());
-        adapter = new ArrayAdapter<TVShow>(getActivity().getApplicationContext(), R.layout.episodes_item,tvshows);
 
+        adapter = new CustomTVShowListAdapter(this.getActivity(), tvshows);
         setListAdapter(adapter);
     }
 

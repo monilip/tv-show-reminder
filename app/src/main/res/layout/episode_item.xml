@@ -4,43 +4,34 @@
     android:layout_height="wrap_content"
     android:padding="8dp" >
 
+    <!-- TVShow title -->
+    <TextView
+        android:id="@+id/tvshowTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:textSize="32sp"
+        android:textStyle="bold" />:
 
-    <!-- Thumbnail Image -->
-    <ImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="8dp" />
-
-    <!-- TVShow Title -->
+    <!-- Episode title -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
-        android:textSize="32sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Description -->
+    <!-- Episode date -->
     <TextView
-        android:id="@+id/description"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_marginTop="1dip"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:textSize="24sp" />
-
-    <!-- Year -->
-    <TextView
-        android:id="@+id/releaseYear"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
 
 </LinearLayout>

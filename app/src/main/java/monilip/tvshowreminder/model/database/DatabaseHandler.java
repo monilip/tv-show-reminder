@@ -38,8 +38,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_YEAR = "year";
     private static final String KEY_DESCRIPION = "description";
 
-
-
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -180,7 +178,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return true;
     }
-
 
     public List<TVShow> getAllTVShows() {
         List<TVShow> tvshows = new ArrayList<TVShow>();
@@ -336,10 +333,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<Episode> episodes = new ArrayList<Episode>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_EPISODES + " WHERE "
+        String innerQuery = "SELECT * FROM " + TABLE_EPISODES + " WHERE "
                 + "Date(" + KEY_DATE + ") >= DATE('now', '-1 day') "
-                + "GROUP BY " + KEY_TVSHOW_ID + " "
-                + "ORDER BY " + KEY_DATE;
+                + "ORDER BY " + KEY_DATE + " DESC    ";
+
+        String selectQuery = "SELECT * FROM (" + innerQuery + ") GROUP BY " + KEY_TVSHOW_ID + " ORDER BY " + KEY_DATE + " ASC ";
         Log.d("TEXT",selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
 

@@ -13,6 +13,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import monilip.tvshowreminder.R;
+import monilip.tvshowreminder.model.adapter.CustomTVShowListAdapter;
 import monilip.tvshowreminder.model.database.DatabaseHandler;
 import monilip.tvshowreminder.model.database.TVShow;
 
@@ -23,15 +24,13 @@ public class TVShowsListFragment extends ListFragment {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    ArrayAdapter<TVShow> adapter;
+    CustomTVShowListAdapter adapter;
 
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        // storing string resources into Array
-        List<TVShow> tvshowsList = this.getListData();
-        adapter = new ArrayAdapter<TVShow>(getActivity().getApplicationContext(), R.layout.tvshow_item,tvshowsList);
 
-      // adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.episodes_item,tvshowsList);
+        List<TVShow> tvshowsList = this.getListData();
+        adapter = new CustomTVShowListAdapter(this.getActivity(), tvshowsList);
         setListAdapter(adapter);
     }
 
@@ -49,7 +48,7 @@ public class TVShowsListFragment extends ListFragment {
         bundle.putInt("tvshowID", tvshowClicked.getId());
         listFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment_tvshows_content, listFragment);
-      //  fragmentTransaction.addToBackStack(null);
+        //  fragmentTransaction.addToBackStack(null);
 
         fragmentTransaction.commit();
 

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import monilip.tvshowreminder.R;
+import monilip.tvshowreminder.model.adapter.CustomEpisodeListAdapter;
 import monilip.tvshowreminder.model.database.DatabaseHandler;
 import monilip.tvshowreminder.model.database.Episode;
 import monilip.tvshowreminder.model.database.TVShow;
@@ -25,7 +26,7 @@ import monilip.tvshowreminder.model.database.TVShow;
  */
 public class DashboardFragment extends Fragment {
 
-    ArrayAdapter<String> adapter;
+    CustomEpisodeListAdapter adapter;
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,24 +40,17 @@ public class DashboardFragment extends Fragment {
 
     }
 
-    private List<String> getNextEpisodesData() {
+    private List<Episode> getNextEpisodesData() {
 
         DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
 
-        List<String> episodesThisWeek = new ArrayList<String>();
-        for(Episode ep : db.getNextEpisodesData()){
-             episodesThisWeek.add(ep.getDate() + ": " + db.getTVShowFromEpisode(ep).getTitle() + " " + ep.getSeasonNumber() + "x" + ep.getEpisodeNumber() + " " + ep.getTitle());
-        }
-
-        return episodesThisWeek;
+        return db.getNextEpisodesData();
     }
 
 
     public void refresh() {
-        //add ListViews
         ListView thisWeekList = (ListView) view.findViewById(R.id.nextEpisodes);
-        adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.tvshow_item,getNextEpisodesData());
+        adapter = new CustomEpisodeListAdapter(this.getActivity(), getNextEpisodesData());
         thisWeekList.setAdapter(adapter);
-
     }
 }
