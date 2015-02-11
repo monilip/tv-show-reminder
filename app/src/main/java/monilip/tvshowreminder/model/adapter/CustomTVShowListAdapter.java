@@ -55,7 +55,6 @@ public class CustomTVShowListAdapter extends BaseAdapter {
         TextView title = (TextView) view.findViewById(R.id.title);
         TextView description = (TextView) view.findViewById(R.id.description);
         TextView year = (TextView) view.findViewById(R.id.releaseYear);
-        ImageView banner = (ImageView) view.findViewById(R.id.banner);
 
         //Getting tvshow data for the row
         TVShow tvshow = tvshowsList.get(i);
@@ -66,10 +65,6 @@ public class CustomTVShowListAdapter extends BaseAdapter {
         description.setText(tvshow.getDescription());
         //Year
         year.setText(tvshow.getYear().toString());
-
-        //TODO
-        //get banner per tvshow
-        banner.setImageResource(R.drawable.banner);
 
         return view;
     }

@@ -5,9 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
@@ -26,12 +24,15 @@ public class TVShowsListFragment extends ListFragment {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     SmallCustomTVShowListAdapter adapter;
+    //CustomTVShowListAdapter adapter;
 
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
         List<TVShow> tvshowsList = this.getListData();
-        adapter = new SmallCustomTVShowListAdapter(this.getActivity(), tvshowsList);
+       adapter = new SmallCustomTVShowListAdapter(this.getActivity(), tvshowsList);
+       //adapter = new CustomTVShowListAdapter(this.getActivity(), tvshowsList);
+
         setListAdapter(adapter);
     }
 
@@ -45,14 +46,11 @@ public class TVShowsListFragment extends ListFragment {
         fragmentTransaction = fragmentManager.beginTransaction();
         Fragment listFragment = new SingleTVShowFragment();
         Bundle bundle = new Bundle();
-        Log.d("TEST", "TVShowClicked ID:"+tvshowClicked.getId());
         bundle.putInt("tvshowID", tvshowClicked.getId());
         listFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment_tvshows_content, listFragment);
-        //  fragmentTransaction.addToBackStack(null);
 
         fragmentTransaction.commit();
-
     }
 
     private List<TVShow> getListData(){

@@ -3,12 +3,8 @@ package monilip.tvshowreminder.controller;
 
 
 import android.app.ActionBar;
-import android.app.Dialog;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -16,26 +12,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import org.w3c.dom.Document;
-
-import java.io.Serializable;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import monilip.tvshowreminder.R;
 import monilip.tvshowreminder.Tests;
-import monilip.tvshowreminder.controller.addTVShow.AddTVShowResultsFragment;
 import monilip.tvshowreminder.model.adapter.TabsPagerAdapter;
 import monilip.tvshowreminder.model.database.DatabaseHandler;
 import monilip.tvshowreminder.model.database.TVShow;
 import monilip.tvshowreminder.model.network.ConnectionDetector;
 import monilip.tvshowreminder.model.network.NetworkManager;
-import monilip.tvshowreminder.model.network.TVDB.FindTVShowParser;
+
 
 /**
  * Created by monilip on 2014-11-26.
@@ -136,7 +122,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
                 return true;
             case R.id.action_clear_db:
                 getApplicationContext().deleteDatabase("tvshowsManager");
-                Log.d("TEST", "database was deleted");
                 return true;
             case R.id.action_tests:
                 tests();
@@ -152,7 +137,6 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         //Checks connection
         ConnectionDetector connectionDetector = new ConnectionDetector(getApplicationContext());
         if (connectionDetector.isConnected()) {
-            Log.d("TEST", "App is connected to the Internet");
             DatabaseHandler db = new DatabaseHandler(getApplicationContext());
             List<TVShow> tvshows = db.getAllTVShows();
             //Getting data from TVDB
@@ -162,19 +146,17 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
             }
 
             NetworkManager netManager = new NetworkManager(getApplicationContext(),this);
-            Log.d("TEST","Adding tvshows' episodes to database...");
             netManager.getTVShowData(TVDBids);
 
         } else {
-            Log.d("TEST", "App is not connected to the Internet :(");
+            Log.d("TEST", "App is not connected to the Internet");
         }
     }
 
     private void tests() {
         Tests tests = new Tests();
 
-        tests.dashboardTest(getApplicationContext());
-
+        tests.crud(getApplicationContext());
     }
 
 

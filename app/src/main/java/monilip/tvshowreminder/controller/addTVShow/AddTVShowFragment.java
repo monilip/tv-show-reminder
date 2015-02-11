@@ -52,8 +52,6 @@ public class AddTVShowFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.searchTVShowButton:
-                Log.d("TEST", "*clicks*");
-
                 //Getting TVShow name to find
                 EditText tvshowName = (EditText) getView().findViewById(R.id.tvshowName);
 
@@ -114,8 +112,6 @@ public class AddTVShowFragment extends Fragment implements View.OnClickListener 
 
         @Override
         protected void onPostExecute(String result) {
-
-            Log.d("TEST","I've got tvshows!");
             progressDialog.dismiss();
             Bundle bundle = new Bundle();
             bundle.putSerializable("tvshowsResults",(Serializable) tvshows);
@@ -134,8 +130,6 @@ public class AddTVShowFragment extends Fragment implements View.OnClickListener 
                 fragmentTransaction.addToBackStack(null);
 
                 fragmentTransaction.commit();
-            } else {
-                Log.d("TEST", "fragmentManager is null :(");
             }
         }
 

@@ -2,16 +2,12 @@ package monilip.tvshowreminder.controller.addTVShow;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import monilip.tvshowreminder.R;
-import monilip.tvshowreminder.model.adapter.CustomEpisodeListAdapter;
 import monilip.tvshowreminder.model.adapter.CustomTVShowListAdapter;
 import monilip.tvshowreminder.model.database.DatabaseHandler;
 import monilip.tvshowreminder.model.database.TVShow;
@@ -37,7 +33,6 @@ public class AddTVShowResultsFragment extends ListFragment {
                 tvshowsList.add("TVShow: '" + tvshows.get(i).getTitle() + "' ( " + tvshows.get(i).getYear() + ")");
             }
         }
-        Log.d("TEST", "tvshows.size: " + tvshows.size());
 
         adapter = new CustomTVShowListAdapter(this.getActivity(), tvshows);
         setListAdapter(adapter);
@@ -51,15 +46,11 @@ public class AddTVShowResultsFragment extends ListFragment {
         DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
         //if there is no tvshow like this in database
         if (db.getTVShow(tvshowClicked.getTitle(),tvshowClicked.getYear()) == null){
-            Log.d("TEST","Adding tvshow to database...");
             db.addTVShow(tvshowClicked);
 
             NetworkManager netManager = new NetworkManager(getActivity().getApplicationContext(),getActivity());
             int[] TVDBids = {tvshowClicked.getTVDBid()};
-            Log.d("TEST","Adding tvshow's episodes to database...");
             netManager.getTVShowData(TVDBids);
-
-            Log.d("TEST", "TVshows "+tvshowClicked.getTitle()+ " has been added to db");
         }
         db.close();
 

@@ -54,10 +54,10 @@ public class SingleTVShowFragment extends Fragment implements View.OnClickListen
         TextView description = (TextView) view.findViewById(R.id.description);
         description.setText(tvshow.getDescription());
 
-        ImageView banner = (ImageView) view.findViewById(R.id.banner);
         //TODO
+        //ImageView banner = (ImageView) view.findViewById(R.id.banner);
         //get banner per tvshow
-        banner.setImageResource(R.drawable.banner);
+        //banner.setImageResource(R.drawable.banner);
 
         return view;
     }
